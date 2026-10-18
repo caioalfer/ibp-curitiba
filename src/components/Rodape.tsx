@@ -61,6 +61,8 @@ export function Rodape({ locais, config }: { locais: Local[]; config: Configurac
             </ul>
           </div>
         </div>
+
+        <p className="mt-16 text-xs text-suave">Site desenvolvido por Caio Alfer</p>
       </div>
     </footer>
   );
