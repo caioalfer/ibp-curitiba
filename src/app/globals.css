@@ -1,26 +1,297 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Fixas: cartões com foto usam véu preto e texto branco nos dois temas. */
+  --preto: #000000;
+  --branco: #ffffff;
+  --curva: cubic-bezier(0.625, 0.05, 0, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/*
+  Tema claro (padrão): papel branco; o "agora" é marcado a tinta preta.
+  Tema escuro: nave preta; o "agora" é a lâmpada creme.
+  O atributo data-tema é definido antes da pintura pelo script do layout (automático pelo sistema ou
+  escolha salva no seletor do cabeçalho). Sem JavaScript, vale prefers-color-scheme.
+*/
+:root,
+:root[data-tema="claro"] {
+  --fundo: #ffffff;
+  --tinta: #0a0a0a;
+  --placa: #f4f3ef;
+  --linha: #e2e1dc;
+  --suave: #5e5e5e;
+  --apagado: #767676;
+  --texto-leitura: #1f1f1f;
+  --marca: #0a0a0a;
+  --marca-texto: #ffffff;
+  --veu-plano: 8%;
+  --veu-lado: 94%;
+  --veu-lado-meio: 68%;
+  --veu-topo: 55%;
+  --veu-base-meio: 50%;
+  --veu-base-fim: 45%;
+  color-scheme: light;
+}
+
+:root[data-tema="escuro"] {
+  --fundo: #000000;
+  --tinta: #ffffff;
+  --placa: #202020;
+  --linha: #333333;
+  --suave: #999999;
+  --apagado: #808080;
+  --texto-leitura: #e8e8e3;
+  --marca: #f5f5f0;
+  --marca-texto: #000000;
+  --veu-plano: 35%;
+  --veu-lado: 85%;
+  --veu-lado-meio: 45%;
+  --veu-topo: 75%;
+  --veu-base-meio: 75%;
+  --veu-base-fim: 75%;
+  color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-tema]) {
+    --fundo: #000000;
+    --tinta: #ffffff;
+    --placa: #202020;
+    --linha: #333333;
+    --suave: #999999;
+    --apagado: #808080;
+    --texto-leitura: #e8e8e3;
+    --marca: #f5f5f0;
+    --marca-texto: #000000;
+    --veu-plano: 35%;
+    --veu-lado: 85%;
+    --veu-lado-meio: 45%;
+    --veu-topo: 75%;
+    --veu-base-meio: 75%;
+    --veu-base-fim: 75%;
+    color-scheme: dark;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --color-fundo: var(--fundo);
+  --color-tinta: var(--tinta);
+  --color-placa: var(--placa);
+  --color-linha: var(--linha);
+  --color-suave: var(--suave);
+  --color-apagado: var(--apagado);
+  --color-marca: var(--marca);
+  --color-marca-texto: var(--marca-texto);
+  --color-preto: var(--preto);
+  --color-branco: var(--branco);
+
+  --font-sans: var(--font-texto);
+  --font-serif: var(--font-destaque);
+
+  --ease-lampada: var(--curva);
+
+  --radius-placa: 10px;
+
+  --shadow-pill: rgba(0, 0, 0, 0.15) 0px 4px 20px 0px;
+  --shadow-vidro: rgba(0, 0, 0, 0.35) 0px 10px 30px 0px, rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset;
+}
+
+@layer base {
+  html {
+    background: var(--fundo);
+    scroll-behavior: smooth;
+    scrollbar-color: var(--linha) var(--fundo);
+  }
+
+  body {
+    background: var(--fundo);
+    color: var(--tinta);
+    font-size: 1rem;
+    line-height: 1.5;
+    font-feature-settings: "ss01" on, "cv11" on;
+    caret-color: var(--tinta);
+  }
+
+  ::selection {
+    background: var(--tinta);
+    color: var(--fundo);
+  }
+
+  :focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* Títulos: a palavra em <em> vira a serif itálica de destaque. */
+  h1 em,
+  h2 em,
+  h3 em,
+  .display em {
+    font-family: var(--font-destaque);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .rotulo {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0 1.5rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition:
+      background-color 0.25s var(--curva),
+      color 0.25s var(--curva),
+      border-color 0.25s var(--curva),
+      opacity 0.25s var(--curva);
+  }
+  /* Ação principal: preta no tema claro, creme (a lâmpada) no escuro. */
+  .pill-primaria {
+    background: var(--marca);
+    color: var(--marca-texto);
+    box-shadow: var(--shadow-pill);
+  }
+  .pill-primaria:hover {
+    opacity: 0.85;
+  }
+  .pill-contorno {
+    border: 1px solid var(--tinta);
+    color: var(--tinta);
+    padding: 0 1.25rem;
+  }
+  .pill-contorno:hover {
+    background: var(--tinta);
+    color: var(--fundo);
+  }
+
+  .vidro {
+    background: rgba(200, 200, 200, 0.1);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    box-shadow: var(--shadow-vidro);
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--branco);
+  }
+
+  .link-sutil {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.25s var(--curva);
+  }
+  .link-sutil:hover {
+    text-decoration-color: currentColor;
+  }
+
+  /* Texto vindo do painel (notícias, artigos, sobre). */
+  .texto-rico {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--texto-leitura);
+  }
+  .texto-rico > * + * {
+    margin-top: 1.1em;
+  }
+  .texto-rico h2 {
+    font-size: 1.875rem;
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: var(--tinta);
+    margin-top: 2em;
+  }
+  .texto-rico h3 {
+    font-size: 1.375rem;
+    font-weight: 500;
+    color: var(--tinta);
+    margin-top: 1.6em;
+  }
+  .texto-rico blockquote {
+    font-family: var(--font-destaque);
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1.35;
+    color: var(--tinta);
+    padding-left: 1.25rem;
+    border-left: 1px solid var(--linha);
+  }
+  .texto-rico a {
+    color: var(--tinta);
+    text-decoration: underline;
+    text-decoration-color: var(--apagado);
+    text-underline-offset: 4px;
+  }
+  .texto-rico strong {
+    font-weight: 500;
+    color: var(--tinta);
+  }
+  .texto-rico figure img {
+    border-radius: 10px;
+  }
+  .texto-rico figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--suave);
+  }
+}
+
+/*
+  Véu sobre a foto do topo, na cor do fundo: mais forte à esquerda e embaixo, onde fica o texto,
+  e terminando na cor da página. Leve no tema claro, mais denso no escuro (variáveis --veu-*).
+*/
+.veu-hero {
+  background:
+    linear-gradient(to top, var(--fundo) 0%, color-mix(in srgb, var(--fundo) var(--veu-base-meio), transparent) 22%, transparent var(--veu-base-fim)),
+    linear-gradient(to right, color-mix(in srgb, var(--fundo) var(--veu-lado), transparent) 0%, color-mix(in srgb, var(--fundo) var(--veu-lado-meio), transparent) 45%, transparent 75%),
+    linear-gradient(to bottom, color-mix(in srgb, var(--fundo) var(--veu-topo), transparent) 0, transparent 10rem),
+    color-mix(in srgb, var(--fundo) var(--veu-plano), transparent);
+}
+
+/* A lâmpada: a linha da próxima Missa acende uma vez. */
+@keyframes acender {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+.acender {
+  transform-origin: left center;
+  animation: acender 0.9s var(--curva) both;
 }

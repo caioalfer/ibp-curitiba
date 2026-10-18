@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T18:00:00Z",
+  "title": "Design System: Instituto Bom Pastor – Curitiba",
+  "extensions": {
+    "themes": {
+      "attribute": "data-tema",
+      "values": ["claro", "escuro"],
+      "storageKey": "tema",
+      "default": "automático (prefers-color-scheme); 'claro' ou 'escuro' salvos no localStorage fixam a escolha",
+      "applied": "script inline no <head> antes da pintura (src/lib/tema.ts); sem JavaScript, @media (prefers-color-scheme: dark) em :root:not([data-tema])",
+      "semanticTokens": {
+        "--fundo": { "claro": "#ffffff", "escuro": "#000000" },
+        "--tinta": { "claro": "#0a0a0a", "escuro": "#ffffff" },
+        "--placa": { "claro": "#f4f3ef", "escuro": "#202020" },
+        "--linha": { "claro": "#e2e1dc", "escuro": "#333333" },
+        "--suave": { "claro": "#5e5e5e", "escuro": "#999999" },
+        "--apagado": { "claro": "#767676", "escuro": "#808080" },
+        "--texto-leitura": { "claro": "#1f1f1f", "escuro": "#e8e8e3" },
+        "--marca": { "claro": "#0a0a0a", "escuro": "#f5f5f0" },
+        "--marca-texto": { "claro": "#ffffff", "escuro": "#000000" }
+      },
+      "fixedTokens": { "--preto": "#000000", "--branco": "#ffffff" },
+      "themeColor": { "light": "#ffffff", "dark": "#000000" }
+    },
+    "colorMeta": {
+      "marca": { "role": "primary", "displayName": "Marca (claro): tinta", "canonical": "#0a0a0a", "tonalRamp": ["#0a0a0a", "#1f1f1f", "#333333", "#5e5e5e", "#767676", "#a3a3a3", "#d4d4d4", "#f5f5f5"] },
+      "marca-texto": { "role": "primary", "displayName": "Texto sobre marca (claro)", "canonical": "#ffffff", "tonalRamp": ["#262626", "#404040", "#5c5c5c", "#7a7a7a", "#999999", "#bababa", "#dcdcdc", "#ffffff"] },
+      "marca-escuro": { "role": "primary", "displayName": "Marca (escuro): creme da lâmpada", "canonical": "#f5f5f0", "tonalRamp": ["#26261f", "#3d3d35", "#57574e", "#737369", "#919187", "#b0b0a7", "#d1d1c9", "#f5f5f0"] },
+      "marca-texto-escuro": { "role": "primary", "displayName": "Texto sobre marca (escuro)", "canonical": "#000000", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#202020", "#333333", "#5e5e5e", "#999999", "#ffffff"] },
+      "fundo": { "role": "neutral", "displayName": "Fundo (claro)", "canonical": "#ffffff", "tonalRamp": ["#262626", "#404040", "#5c5c5c", "#7a7a7a", "#999999", "#bababa", "#dcdcdc", "#ffffff"] },
+      "tinta": { "role": "neutral", "displayName": "Tinta (claro)", "canonical": "#0a0a0a", "tonalRamp": ["#0a0a0a", "#1f1f1f", "#333333", "#5e5e5e", "#767676", "#a3a3a3", "#d4d4d4", "#f5f5f5"] },
+      "placa": { "role": "neutral", "displayName": "Placa (claro)", "canonical": "#f4f3ef", "tonalRamp": ["#26251f", "#3e3d37", "#5a5952", "#78776f", "#97968e", "#b8b7b0", "#d8d7d1", "#f4f3ef"] },
+      "linha": { "role": "neutral", "displayName": "Linha (claro)", "canonical": "#e2e1dc", "tonalRamp": ["#24231f", "#3b3a35", "#55544e", "#71706a", "#8f8e88", "#adaca6", "#c8c7c1", "#e2e1dc"] },
+      "suave": { "role": "neutral", "displayName": "Suave (claro)", "canonical": "#5e5e5e", "tonalRamp": ["#1a1a1a", "#2e2e2e", "#454545", "#5e5e5e", "#7a7a7a", "#999999", "#bdbdbd", "#e0e0e0"] },
+      "apagado": { "role": "neutral", "displayName": "Apagado (claro)", "canonical": "#767676", "tonalRamp": ["#1f1f1f", "#363636", "#525252", "#767676", "#8f8f8f", "#ababab", "#c9c9c9", "#e6e6e6"] },
+      "texto-leitura": { "role": "neutral", "displayName": "Texto de leitura (claro)", "canonical": "#1f1f1f", "tonalRamp": ["#0a0a0a", "#1f1f1f", "#383838", "#545454", "#737373", "#969696", "#bdbdbd", "#e3e3e3"] },
+      "fundo-escuro": { "role": "neutral", "displayName": "Fundo (escuro): nave", "canonical": "#000000", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#202020", "#333333", "#5e5e5e", "#999999", "#ffffff"] },
+      "tinta-escuro": { "role": "neutral", "displayName": "Tinta (escuro)", "canonical": "#ffffff", "tonalRamp": ["#262626", "#404040", "#5c5c5c", "#7a7a7a", "#999999", "#bababa", "#dcdcdc", "#ffffff"] },
+      "placa-escuro": { "role": "neutral", "displayName": "Placa (escuro)", "canonical": "#202020", "tonalRamp": ["#0a0a0a", "#141414", "#202020", "#333333", "#4d4d4d", "#6b6b6b", "#999999", "#d4d4d4"] },
+      "linha-escuro": { "role": "neutral", "displayName": "Linha (escuro)", "canonical": "#333333", "tonalRamp": ["#0a0a0a", "#1a1a1a", "#262626", "#333333", "#4d4d4d", "#6b6b6b", "#999999", "#d4d4d4"] },
+      "suave-escuro": { "role": "neutral", "displayName": "Suave (escuro)", "canonical": "#999999", "tonalRamp": ["#1a1a1a", "#333333", "#4d4d4d", "#666666", "#808080", "#999999", "#bfbfbf", "#e6e6e6"] },
+      "apagado-escuro": { "role": "neutral", "displayName": "Apagado (escuro)", "canonical": "#808080", "tonalRamp": ["#1a1a1a", "#333333", "#4d4d4d", "#666666", "#808080", "#999999", "#bfbfbf", "#e6e6e6"] },
+      "texto-leitura-escuro": { "role": "neutral", "displayName": "Texto de leitura (escuro)", "canonical": "#e8e8e3", "tonalRamp": ["#26261f", "#3d3d37", "#58584f", "#75756d", "#94948d", "#b4b4ad", "#cfcfc9", "#e8e8e3"] },
+      "preto": { "role": "neutral", "displayName": "Preto (cartão com foto, fixo)", "canonical": "#000000", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#202020", "#333333", "#5e5e5e", "#999999", "#ffffff"] },
+      "branco": { "role": "neutral", "displayName": "Branco (cartão com foto, fixo)", "canonical": "#ffffff", "tonalRamp": ["#262626", "#404040", "#5c5c5c", "#7a7a7a", "#999999", "#bababa", "#dcdcdc", "#ffffff"] }
+    },
+    "typographyMeta": {
+      "display-pagina": { "displayName": "Display de página", "purpose": "h1 de cada página interna; Geist 300 com tracking -0.045em." },
+      "display-lampada": { "displayName": "Display da lâmpada", "purpose": "A frase da próxima Missa no hero, em tinta (primeira linha a 65%), com o traço da lâmpada em marca embaixo." },
+      "headline": { "displayName": "Headline", "purpose": "Títulos de seção." },
+      "title": { "displayName": "Title", "purpose": "Nomes dos dias na programação, títulos de cartões, itens do menu móvel." },
+      "body": { "displayName": "Body", "purpose": "Texto corrente, com ss01 e cv11." },
+      "leitura": { "displayName": "Leitura", "purpose": "Texto rico de artigos e notícias, coluna de até 40rem, em texto-leitura." },
+      "label": { "displayName": "Rótulo", "purpose": "Metadados em caixa alta: datas, locais, estados, cor litúrgica, tema sem foto, legenda do seletor de tema." },
+      "chip": { "displayName": "Chip", "purpose": "Só dentro dos chips de vidro." },
+      "destaque": { "displayName": "Destaque", "purpose": "Instrument Serif itálico: no máximo uma palavra de recompensa por página, via <em> em título; e a citação em bloco do texto rico." }
+    },
+    "shadows": [
+      { "name": "pill", "value": "rgba(0, 0, 0, 0.15) 0px 4px 20px 0px", "purpose": "Pílula primária." },
+      { "name": "vidro", "value": "rgba(0, 0, 0, 0.35) 0px 10px 30px 0px, rgba(255, 255, 255, 0.08) 0px 1px 0px 0px inset", "purpose": "Só no chip de vidro sobre fotografia." },
+      { "name": "painel", "value": "0 10px 30px rgba(0, 0, 0, 0.12)", "purpose": "Só nos painéis suspensos: atendimento e seletor de tema." }
+    ],
+    "motion": [
+      { "name": "curva-lampada", "value": "cubic-bezier(0.625, 0.05, 0, 1)", "purpose": "Curva única do sistema; estados em 0.2 a 0.3s." },
+      { "name": "acender", "value": "scaleX(0)→scaleX(1) + opacity 0→1, 0.9s, curva-lampada, origem à esquerda", "purpose": "O único momento autoral: a linha da próxima Missa acende uma vez." },
+      { "name": "zoom-foto", "value": "transform scale(1.03), 0.7s, curva-lampada", "purpose": "Hover dos cartões de publicação com foto." },
+      { "name": "cabecalho", "value": "background/border/color, 0.3s, curva-lampada", "purpose": "Cabeçalho passa de transparente sobre o véu do hero para fundo com filete." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Pílula primária",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "A ação primária em marca: preta no claro, creme no escuro. \"Falar com o padre\".",
+      "html": "<button class=\"ds-pill ds-pill-primaria\">Falar com o padre</button>",
+      "css": ".ds-pill { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1.5rem; border-radius: 9999px; font-family: var(--font-texto, Geist, sans-serif); font-size: 1rem; font-weight: 500; white-space: nowrap; border: none; cursor: pointer; transition: background-color 0.25s cubic-bezier(0.625,0.05,0,1), color 0.25s cubic-bezier(0.625,0.05,0,1), border-color 0.25s cubic-bezier(0.625,0.05,0,1), opacity 0.25s cubic-bezier(0.625,0.05,0,1); } .ds-pill-primaria { background: var(--marca, #0a0a0a); color: var(--marca-texto, #fff); box-shadow: rgba(0,0,0,0.15) 0px 4px 20px 0px; } .ds-pill-primaria:hover { opacity: 0.85; } .ds-pill:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }"
+    },
+    {
+      "name": "Pílula de contorno",
+      "kind": "button",
+      "refersTo": "button-contorno",
+      "description": "Ação secundária com filete de tinta; inverte no hover. \"Ver a semana\", \"Conheça o Instituto\", \"Menu\".",
+      "html": "<a href=\"#\" class=\"ds-pill-contorno\">Conheça o Instituto</a>",
+      "css": ".ds-pill-contorno { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1.25rem; border-radius: 9999px; border: 1px solid var(--tinta, #0a0a0a); color: var(--tinta, #0a0a0a); background: transparent; font-family: var(--font-texto, Geist, sans-serif); font-size: 1rem; font-weight: 500; text-decoration: none; transition: background-color 0.25s cubic-bezier(0.625,0.05,0,1), color 0.25s cubic-bezier(0.625,0.05,0,1); } .ds-pill-contorno:hover { background: var(--tinta, #0a0a0a); color: var(--fundo, #fff); } .ds-pill-contorno:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }"
+    },
+    {
+      "name": "Seletor de tema (cabeçalho)",
+      "kind": "custom",
+      "refersTo": "seletor-tema-botao",
+      "description": "Botão circular com ícone de meio círculo; painel suspenso com Automático, Claro, Escuro; a escolha atual leva um ponto de marca.",
+      "html": "<div class=\"ds-tema\"><button class=\"ds-tema-botao\" aria-expanded=\"true\" aria-label=\"Tema: Automático\"><svg aria-hidden=\"true\" viewBox=\"0 0 16 16\" width=\"16\" height=\"16\"><circle cx=\"8\" cy=\"8\" r=\"6.25\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.25\"/><path d=\"M8 1.75a6.25 6.25 0 0 1 0 12.5Z\" fill=\"currentColor\"/></svg></button><ul class=\"ds-tema-painel\"><li><button aria-pressed=\"true\">Automático<span class=\"ds-tema-ponto\"></span></button></li><li><button aria-pressed=\"false\">Claro</button></li><li><button aria-pressed=\"false\">Escuro</button></li></ul></div>",
+      "css": ".ds-tema { position: relative; display: inline-block; padding-bottom: 9rem; font-family: var(--font-texto, Geist, sans-serif); } .ds-tema-botao { display: flex; align-items: center; justify-content: center; width: 2.5rem; height: 2.5rem; border-radius: 9999px; border: 1px solid var(--linha, #e2e1dc); background: transparent; color: var(--tinta, #0a0a0a); cursor: pointer; transition: background-color 0.2s cubic-bezier(0.625,0.05,0,1); } .ds-tema-botao:hover { background: var(--placa, #f4f3ef); } .ds-tema-botao:focus-visible, .ds-tema-painel button:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; } .ds-tema-painel { position: absolute; top: 3.25rem; left: 0; width: 11rem; margin: 0; padding: 0.25rem 0; list-style: none; overflow: hidden; border-radius: 10px; border: 1px solid var(--linha, #e2e1dc); background: var(--fundo, #fff); color: var(--tinta, #0a0a0a); box-shadow: 0 10px 30px rgba(0,0,0,0.12); } .ds-tema-painel button { display: flex; width: 100%; align-items: center; justify-content: space-between; padding: 0.625rem 1rem; border: none; background: transparent; color: inherit; font: inherit; font-size: 0.9375rem; text-align: left; cursor: pointer; transition: background-color 0.2s cubic-bezier(0.625,0.05,0,1); } .ds-tema-painel button:hover { background: var(--placa, #f4f3ef); } .ds-tema-ponto { width: 6px; height: 6px; border-radius: 9999px; background: var(--marca, #0a0a0a); }"
+    },
+    {
+      "name": "Seletor de tema (menu móvel)",
+      "kind": "chip",
+      "refersTo": "seletor-tema-opcao-ativa",
+      "description": "Grupo segmentado em pílula; a opção atual é uma pílula de marca.",
+      "html": "<div class=\"ds-seg\" role=\"group\" aria-label=\"Tema\"><button aria-pressed=\"false\">Automático</button><button aria-pressed=\"true\">Claro</button><button aria-pressed=\"false\">Escuro</button></div>",
+      "css": ".ds-seg { display: flex; max-width: 22rem; padding: 0.25rem; border-radius: 9999px; border: 1px solid var(--linha, #e2e1dc); font-family: var(--font-texto, Geist, sans-serif); } .ds-seg button { flex: 1; min-height: 2.5rem; padding: 0 1rem; border: none; border-radius: 9999px; background: transparent; color: var(--suave, #5e5e5e); font: inherit; font-size: 0.9375rem; font-weight: 500; cursor: pointer; transition: color 0.2s cubic-bezier(0.625,0.05,0,1), background-color 0.2s cubic-bezier(0.625,0.05,0,1); } .ds-seg button:hover { color: var(--tinta, #0a0a0a); } .ds-seg button[aria-pressed=true] { background: var(--marca, #0a0a0a); color: var(--marca-texto, #fff); } .ds-seg button:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }"
+    },
+    {
+      "name": "Chip de vidro",
+      "kind": "chip",
+      "refersTo": "chip-vidro",
+      "description": "Categoria sobre fotografia, no canto do cartão; igual nos dois temas.",
+      "html": "<div class=\"ds-vidro-palco\"><span class=\"ds-vidro\">Liturgia</span></div>",
+      "css": ".ds-vidro-palco { padding: 2rem; background: linear-gradient(135deg, #5e5e5e, #000); border-radius: 10px; } .ds-vidro { display: inline-block; background: rgba(200,200,200,0.1); backdrop-filter: blur(20px) saturate(1.4); -webkit-backdrop-filter: blur(20px) saturate(1.4); box-shadow: rgba(0,0,0,0.35) 0px 10px 30px 0px, rgba(255,255,255,0.08) 0px 1px 0px 0px inset; border-radius: 9999px; padding: 0.5rem 1rem; font-family: var(--font-texto, Geist, sans-serif); font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--branco, #fff); }"
+    },
+    {
+      "name": "Cartão de publicação sem foto",
+      "kind": "card",
+      "refersTo": "chip-contorno",
+      "description": "Placa com chip de contorno, data em rótulo e resumo suave.",
+      "html": "<a href=\"#\" class=\"ds-cartao\"><span class=\"ds-chip-contorno\">Doutrina</span><span class=\"ds-cartao-corpo\"><span class=\"ds-rotulo\">12 de outubro de 2026</span><span class=\"ds-cartao-titulo\">Por que a Missa em latim</span><span class=\"ds-cartao-resumo\">Uma breve explicação para quem vem pela primeira vez.</span></span></a>",
+      "css": ".ds-cartao { position: relative; display: flex; flex-direction: column; justify-content: flex-end; aspect-ratio: 4/3; max-width: 28rem; border-radius: 10px; background: var(--placa, #f4f3ef); color: var(--tinta, #0a0a0a); text-decoration: none; font-family: var(--font-texto, Geist, sans-serif); } .ds-cartao:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; } .ds-chip-contorno { position: absolute; top: 1.25rem; right: 1.25rem; border: 1px solid var(--linha, #e2e1dc); border-radius: 9999px; padding: 0.375rem 1rem; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; } .ds-cartao-corpo { padding: 1.75rem; } .ds-rotulo { display: block; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave, #5e5e5e); } .ds-cartao-titulo { display: block; margin-top: 0.5rem; font-size: 1.75rem; line-height: 1.25; font-weight: 300; letter-spacing: -0.02em; } .ds-cartao-resumo { display: block; margin-top: 0.75rem; color: var(--suave, #5e5e5e); }"
+    },
+    {
+      "name": "Placa de aviso",
+      "kind": "card",
+      "refersTo": "card-placa",
+      "description": "Placa plana, sem sombra, com rótulo de validade.",
+      "html": "<div class=\"ds-placa\"><p class=\"ds-placa-texto\">Confissões antes de todas as Missas de domingo.</p><div class=\"ds-placa-pe\"><span class=\"ds-placa-rotulo\">Até 24 out</span><a href=\"#\" class=\"ds-link-sutil\">Saiba mais</a></div></div>",
+      "css": ".ds-placa { display: flex; flex-direction: column; background: var(--placa, #f4f3ef); border-radius: 10px; padding: 1.75rem; color: var(--tinta, #0a0a0a); font-family: var(--font-texto, Geist, sans-serif); max-width: 28rem; } .ds-placa-texto { margin: 0; font-size: 1.125rem; line-height: 1.625; } .ds-placa-pe { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-top: 1.5rem; } .ds-placa-rotulo { font-size: 0.8125rem; line-height: 1.5; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave, #5e5e5e); } .ds-link-sutil { color: inherit; font-size: 0.9375rem; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 30%, transparent); text-underline-offset: 4px; transition: text-decoration-color 0.25s cubic-bezier(0.625,0.05,0,1); } .ds-link-sutil:hover { text-decoration-color: currentColor; } .ds-link-sutil:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }"
+    },
+    {
+      "name": "Navegação",
+      "kind": "nav",
+      "description": "Cabeçalho rolado: marca em duas linhas, links suave/tinta, filete linha; sempre em tinta, nos dois temas.",
+      "html": "<header class=\"ds-nav\"><a href=\"#\" class=\"ds-nav-marca\"><span class=\"ds-nav-nome\">Instituto Bom Pastor</span><span class=\"ds-nav-cidade\">Curitiba</span></a><nav><ul class=\"ds-nav-links\"><li><a href=\"#\" aria-current=\"page\">Horários</a></li><li><a href=\"#\">Avisos</a></li><li><a href=\"#\">Notícias</a></li><li><a href=\"#\">Artigos</a></li><li><a href=\"#\">Sobre</a></li></ul></nav></header>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 4.5rem; padding: 0 2rem; background: var(--fundo, #fff); border-bottom: 1px solid var(--linha, #e2e1dc); font-family: var(--font-texto, Geist, sans-serif); color: var(--tinta, #0a0a0a); } .ds-nav-marca { color: inherit; text-decoration: none; line-height: 1.25; } .ds-nav-nome { display: block; font-size: 0.9375rem; font-weight: 500; } .ds-nav-cidade { display: block; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--suave, #5e5e5e); } .ds-nav-links { display: flex; gap: 1.75rem; list-style: none; margin: 0; padding: 0; } .ds-nav-links a { font-size: 0.9375rem; font-weight: 500; color: var(--suave, #5e5e5e); text-decoration: none; transition: color 0.2s cubic-bezier(0.625,0.05,0,1); } .ds-nav-links a:hover, .ds-nav-links a[aria-current=page] { color: var(--tinta, #0a0a0a); } .ds-nav-links a:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }"
+    },
+    {
+      "name": "Programação (coluna de marcas)",
+      "kind": "custom",
+      "refersTo": "linha-proxima",
+      "description": "Estado pela forma da linha: próxima em faixa de marca, adiante inteira, passou curta, cancelado tracejado.",
+      "html": "<ul class=\"ds-prog\"><li class=\"ds-item ds-passou\"><span class=\"ds-pavio\"></span><span class=\"ds-hora\">07h00</span><span>Missa rezada</span></li><li class=\"ds-item ds-proxima\"><span class=\"ds-pavio\"></span><span class=\"ds-hora\">19h30</span><span><b>Missa cantada</b> <span class=\"ds-rot\">Próxima</span></span></li><li class=\"ds-item ds-adiante\"><span class=\"ds-pavio\"></span><span class=\"ds-hora\">21h00</span><span>Terço</span></li><li class=\"ds-item ds-cancelado\"><span class=\"ds-pavio\"></span><span class=\"ds-hora\"><s>22h00</s></span><span><s>Adoração</s> <span class=\"ds-rot\">Cancelado</span></span></li></ul>",
+      "css": ".ds-prog { list-style: none; margin: 0; padding: 1.5rem; background: var(--fundo, #fff); font-family: var(--font-texto, Geist, sans-serif); color: var(--tinta, #0a0a0a); max-width: 32rem; } .ds-item { display: grid; grid-template-columns: 2rem 4.25rem 1fr; align-items: baseline; column-gap: 0.75rem; border-radius: 10px; padding: 0.5rem 0.75rem; margin-bottom: 0.25rem; } .ds-item b { font-weight: 500; } .ds-hora { font-variant-numeric: tabular-nums; } .ds-pavio { display: block; position: relative; top: -0.3em; width: 2rem; height: 1px; background: var(--tinta, #0a0a0a); } .ds-rot { margin-left: 0.75rem; font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; } .ds-proxima { background: var(--marca, #0a0a0a); color: var(--marca-texto, #fff); } .ds-proxima .ds-pavio { height: 2px; background: var(--marca-texto, #fff); transform-origin: left center; animation: ds-acender 0.9s cubic-bezier(0.625,0.05,0,1) both; } .ds-passou { color: var(--apagado, #767676); } .ds-passou .ds-pavio { width: 1rem; background: var(--linha, #e2e1dc); } .ds-cancelado { color: var(--apagado, #767676); } .ds-cancelado .ds-pavio { background: none; border-top: 1px dashed var(--apagado, #767676); } @keyframes ds-acender { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } } @media (prefers-reduced-motion: reduce) { .ds-proxima .ds-pavio { animation-duration: 0.01ms; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A lâmpada do sacrário",
+    "overview": "O site tem dois temas que são o mesmo mundo visto de dia e de noite. No claro, a página é papel branco e tinta quase preta; no escuro, é a nave preta com texto branco. Nos dois, só uma coisa é marcada: o que é \"agora\" (a próxima Missa, o dia de hoje, a ação principal) recebe a cor de marca, faixa de tinta preta no papel, luz creme da lâmpada na nave. Tudo o mais é cinza suave, placas e filetes. O tema segue o sistema por padrão e o visitante pode fixá-lo no cabeçalho (Automático, Claro, Escuro).\n\nO topo da home é uma fotografia de altura total da nave sob véus na cor do fundo (brancos no claro, pretos no escuro), com o texto em tinta e, sob o horário da próxima Missa, o traço da lâmpada que acende na cor de marca. A tipografia é uma sans leve (Geist 300) em escala de display com tracking apertado, e uma serif itálica (Instrument Serif) que aparece no máximo como uma palavra de recompensa por página. Metadados vivem em rótulos em caixa alta espaçada. Ações são pílulas; categorias sobre fotos são chips de vidro, e sem foto, chips de contorno. O movimento é raro: um único momento autoral, a linha da lâmpada que acende.\n\nA cor litúrgica do dia é escrita por extenso (\"Roxo\", \"Branco\"), nunca pintada. A interface não tem nenhuma cor cromática; a cor que existe vem só das fotografias.",
+    "keyCharacteristics": [
+      "Dois temas por tokens semânticos: papel branco e tinta #0a0a0a no claro; preto e branco no escuro.",
+      "O \"agora\" é a cor de marca: preto cheio no claro, creme da lâmpada #f5f5f0 no escuro.",
+      "Estado comunicado pela forma da linha (faixa cheia, inteira, curta, tracejada), nunca pelo matiz.",
+      "Sans 300 de display com tracking negativo; no máximo uma palavra em serif itálica por página.",
+      "Placas com cantos de 10px, sem sombra; filetes de 1px como estrutura.",
+      "Pílulas para ações; chips de vidro sobre foto, chips de contorno sobre papel."
+    ],
+    "rules": [
+      { "name": "A Regra da Marca", "body": "O \"agora\" leva a cor de marca: próxima Missa, \"Hoje\", ação primária, o traço da lâmpada e a escolha atual do seletor de tema. Se algo preenchido de marca não for uma dessas coisas, está errado. Os hovers das pílulas de contorno se preenchem de tinta, não de marca.", "section": "colors" },
+      { "name": "A Regra da Lâmpada", "body": "O creme #f5f5f0 só existe como a marca do tema escuro. Nunca aparece no tema claro, nem como acento decorativo, fundo de seção ou cor de link no escuro.", "section": "colors" },
+      { "name": "A Regra do Token Semântico", "body": "Toda cor de interface vem dos tokens semânticos, que mudam com o tema; nenhum componente escreve preto ou branco fixo, exceto os cartões com foto, que mantêm véu preto e texto branco nos dois temas.", "section": "colors" },
+      { "name": "A Regra Sem Matiz", "body": "A interface não usa cor cromática. Cores litúrgicas são palavras em rótulo, não amostras de cor. A fotografia é a única fonte de cor e é bem-vinda como tal.", "section": "colors" },
+      { "name": "A Regra da Palavra Única", "body": "A serif itálica aparece em no máximo uma palavra de recompensa por página, marcada com <em> dentro de um título (\"Horários *habituais*\", \"Instituto *Bom Pastor*\", \"Palavra do *padre*\", \"*hoje*\"). Nunca em frases inteiras, nunca em texto corrido; a única outra ocorrência é a citação em bloco do texto rico.", "section": "typography" },
+      { "name": "A Regra do Peso Leve", "body": "Títulos são sempre 300. Ênfase dentro do corpo é 500, nunca bold.", "section": "typography" },
+      { "name": "A Regra da Placa Plana", "body": "Placas nunca levam sombra; separação é tom e filete.", "section": "elevation" },
+      { "name": "A Regra do Véu do Fundo", "body": "O véu do hero é sempre a cor do fundo do tema, para o texto em tinta ler sobre a foto; só os cartões com foto mantêm véu preto fixo.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do marcar o \"agora\" com a cor de marca: a próxima Missa, o \"Hoje\", a ação primária, o traço da lâmpada e a escolha atual do seletor de tema.",
+      "Do tirar toda cor de interface dos tokens semânticos (`--fundo`, `--tinta`, `--placa`, `--linha`, `--suave`, `--apagado`, `--texto-leitura`, `--marca`, `--marca-texto`) e conferir cada tela nos dois temas.",
+      "Do aplicar o tema antes da pintura pelo `data-tema` do `<html>`, com `prefers-color-scheme` como reserva sem JavaScript.",
+      "Do comunicar estado pela forma da linha (faixa cheia, filete inteiro, filete curto, tracejado), nunca por matiz.",
+      "Do escrever cores litúrgicas como palavras em rótulo.",
+      "Do usar Geist 300 com tracking negativo para todo título, e no máximo uma palavra em serif itálica por página.",
+      "Do carregar metadados em rótulos em caixa alta (0.8125rem, 500, 0.08em) em suave.",
+      "Do usar placas com 10px de raio e sem sombra, e filetes de 1px como estrutura.",
+      "Do pôr véus na cor do fundo sob o texto do hero, e véu preto fixo sob o texto dos cartões com foto.",
+      "Do usar a curva cubic-bezier(0.625, 0.05, 0, 1) em 0.2 a 0.3s para estados, e respeitar movimento reduzido."
+    ],
+    "donts": [
+      "Don't introduzir cor cromática na interface, nem em amostras de cor litúrgica, ícones ou estados.",
+      "Don't usar o creme da lâmpada no tema claro, nem como acento decorativo, fundo de seção ou cor de link no escuro.",
+      "Don't preencher de marca nada além do \"agora\", da ação primária e da escolha atual do seletor de tema.",
+      "Don't escrever preto ou branco fixos em componentes de interface; só os cartões com foto os usam.",
+      "Don't pôr serif itálica em mais de uma palavra por página ou em texto corrido.",
+      "Don't dar sombra a placas ou usar sombras duras deslocadas.",
+      "Don't criar um segundo momento de movimento autoral além da lâmpada; nada de bounce.",
+      "Don't usar títulos em bold; ênfase máxima é 500."
+    ]
+  }
+}

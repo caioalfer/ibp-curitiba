@@ -2,7 +2,7 @@
 
 Documento vivo do projeto: escopo, decisões e pendências. Atualizar a cada decisão nova.
 
-**Status:** levantamento de ideias. Aguardando informações do IBP e a proposta de front-end.
+**Status (2026-10-17):** Fase 1 pronta e publicada (código no GitHub, site na Vercel; ver seção Publicação). Funcionam a home (próxima Missa, avisos, programação semanal, artigos, notícias, O Instituto), os horários, os avisos, as notícias, os artigos, o "Sobre" (história, Superior Geral, Prior de Curitiba), o botão de WhatsApp com seletor, o tema claro/escuro e o painel. Avisos, artigos e notícias ainda são **exemplos** marcados na tela. Faltam o projeto no Sanity, o número de WhatsApp, o local de cada horário e a biografia do Pe. Thiago. Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
 
 ---
 
@@ -68,6 +68,13 @@ Levantado em 2026-10-17 a partir do site do distrito: [ibpamericalatina.org](htt
 | 4 | 2026-10-17 | Seção **Sobre** com três partes: história do IBP, superiores e apostolado em Curitiba. | Apresentar o Instituto como um todo e a presença local. |
 | 5 | 2026-10-17 | Superiores exibidos: **superior geral** e **padre de Curitiba**. O superior de distrito fica de fora. | Escolha do cliente. |
 | 6 | 2026-10-17 | Dois níveis de horário: **horários padrão** (fixos) e **programação semanal** (editada pelo administrador toda semana), com a programação semanal **sempre em destaque**. | A semana real muda com festas, eventos e imprevistos; o fiel precisa ver a semana atual, não só a regra geral. |
+| 7 | 2026-10-17 | Tecnologia: **Next.js 16 + Tailwind + Sanity**, com o painel em `/studio`. | Opção mais segura: login, banco e imagens ficam no Sanity, sem senha nem banco próprios para proteger. O site público é praticamente estático e não coleta dados pessoais. |
+| 8 | 2026-10-17 | A programação semanal vai de **segunda a domingo**, igual ao post do Instagram. O site mostra sempre **os próximos 7 dias a partir de hoje**, juntando semanas e horários padrão. | O administrador pensa na semana do post; o fiel vê sempre o que vem pela frente, sem "buraco" na virada da semana. |
+| 9 | 2026-10-17 | Visual: referência **Sequel** (fundo preto, creme como único destaque, sans leve + serif itálica na palavra-chave), adaptada como **"Lâmpada do Santíssimo"**: a próxima Missa é a única coisa "acesa" (creme) no site; na semana, o que já passou fica apagado e o cancelado, riscado. Fontes: Geist + Instrument Serif. | Escolha do cliente. A ideia da lâmpada transforma a tarefa principal (achar a próxima Missa) no elemento mais visível. |
+| 10 | 2026-10-17 | **Fundo branco** no site. Só o topo da home fica escuro, com a foto da Missa e a próxima Missa em creme. Na semana, a próxima Missa e o "Hoje" viram uma faixa preta ("marcado a tinta"). Botão principal preto; creme só sobre a foto. | Melhor leitura para idosos, ao sol e em textos longos. A foto mantém o clima no topo. |
+| 11 | 2026-10-17 | **Modo claro e modo escuro.** Segue o tema do sistema automaticamente; no cabeçalho dá para escolher Automático, Claro ou Escuro (a escolha fica salva no navegador). Claro: fundo branco, "agora" em preto, véu branco sobre a foto do topo. Escuro: fundo preto, "agora" em creme (a lâmpada), véu preto sobre a foto. | Pedido do cliente: respeitar a preferência de cada pessoa. |
+| 12 | 2026-10-17 | Home com **uma seção por tópico**, nesta ordem: **Avisos** (primeira, logo após o topo), Esta semana, Palavra do padre (artigos), Notícias e O Instituto (primeira vez na Missa + superiores). Cada seção tem título, descrição e link para a página completa. Conteúdo de **exemplo** (avisos, artigos e notícias) em `src/lib/exemplos.ts`, marcado como "Exemplo" na tela e substituído automaticamente quando o painel estiver ligado. | Pedido do cliente: ilustrar o site e dar a cada tópico seu espaço na home. |
+| 13 | 2026-10-17 | Página Sobre com **seções dedicadas**: A história → **O Superior Geral** (Pe. Luis Gabriel Barrero) → **O Prior de Curitiba** (Pe. Thiago Bonifácio). No painel, "Sobre" tem os campos *Superior Geral* e *Prior de Curitiba* (antes era uma lista de superiores). A seção "Em Curitiba" foi removida por ser redundante com a do Prior. | Pedido do cliente: destacar cada um em sua própria seção. |
 
 ---
 
@@ -126,10 +133,9 @@ Recebidos em 2026-10-17, a partir de um post do Instagram @ibpcuritiba.
 Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando validação
 
 ### Home
-- **Confirmado** — **Programação semanal em destaque**, editada pelo administrador (ver seção Horários).
-- **Confirmado** — Faixa de avisos ativos.
+- **Confirmado** — Topo com a foto da Missa e a **próxima Missa** em destaque (dia, hora, tipo, local e botão "Ver a semana").
+- **Confirmado** — Uma seção por tópico (decisão 12): **Avisos** (primeira), **Esta semana** (programação dos próximos 7 dias, editada pelo administrador), **Palavra do padre** (artigos), **Notícias** e **O Instituto** (primeira vez na Missa + Superior Geral e Prior).
 - **Sugerido** — "Hoje no calendário litúrgico": festa do dia, classe e cor litúrgica (calendário de 1962).
-- **Sugerido** — Últimas notícias e artigos.
 
 ### Botão de atendimento (WhatsApp)
 - **Confirmado** — Um botão fixo (ex.: "Falar com o padre"), visível em todas as páginas.
@@ -146,22 +152,22 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 - Aparece na faixa da home e numa página própria.
 
 ### Notícias
-- **Confirmado** — Texto maior, com fotos (ex.: procissões, festas, visitas).
+- **Confirmado** — Texto maior, sempre com foto (ex.: procissões, festas, peregrinações). As duas atuais são exemplos, com fotos reais do apostolado.
 
 ### Artigos do padre
-- **Confirmado** — Artigos de formação.
+- **Confirmado** — **Ensaios** (filosóficos/espirituais), cada um com imagem, data e tema. Os três atuais são exemplos, ilustrados com pinturas em domínio público.
 - **Sugerido** — Organização por tema (liturgia, doutrina, vida espiritual, família).
 - **Sugerido** — Sermões em áudio (formato podcast).
 - **Sugerido** — Próprio da Missa do domingo em PDF (latim/português).
 
 ### Sobre
-- **Confirmado** — **História do IBP**: fundação, carisma e missão do Instituto.
-- **Confirmado** — **Superiores**, com foto e breve apresentação:
-  - Superior geral: Pe. Luis Gabriel Barrero (a biografia já existe no site do distrito)
-  - Padre de Curitiba: Pe. Thiago Bonifácio (biografia a receber)
-- **Confirmado** — **Apostolado em Curitiba**: história da presença do IBP na cidade, os dois locais (Casa do Padre no Batel e Capela da Imaculada Conceição no Rebouças) e as atividades.
-- Endereço com mapa e contato (pode ficar aqui ou numa página "Contato" separada).
-- Pendente: definir se é uma página única com seções ou subpáginas (depende do volume de texto).
+- **Confirmado** — **A história** do IBP: fundação, carisma e missão (decisão 13).
+- **Confirmado** — **O Superior Geral**: Pe. Luis Gabriel Barrero, com foto, cargo e biografia.
+- **Confirmado** — **O Prior de Curitiba**: Pe. Thiago Bonifácio, com foto e cargo (biografia a receber).
+- Endereços dos dois locais ficam no rodapé e na página de horários, com link para o mapa.
+
+### Tema claro e escuro
+- **Confirmado** — Automático pelo sistema, com seletor Automático/Claro/Escuro no cabeçalho (decisão 11).
 
 ### Outras páginas sugeridas
 - **Sugerido** — "Primeira vez na Missa tradicional?": o que esperar, como acompanhar, vestimenta, comunhão, missal.
@@ -189,6 +195,14 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 
 ---
 
+## Publicação
+
+- **Código:** repositório público no GitHub. Branch principal: `main`.
+- **Hospedagem:** Vercel, conectada ao repositório: cada push na `main` publica o site; cada pull request ganha uma prévia.
+- **Variáveis de ambiente** a cadastrar na Vercel quando o Sanity existir: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_REVALIDATE_SECRET` (ver README).
+
+---
+
 ## Informações pendentes (a receber)
 
 - [x] Horários de Missa, confissão e demais atividades (ver seção Horários)
@@ -197,13 +211,15 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 - [ ] Número(s) de WhatsApp para o botão de atendimento
 - [x] História do IBP (base no site do distrito; revisar com o padre)
 - [x] Superiores definidos: Pe. Luis Gabriel Barrero e Pe. Thiago Bonifácio
-- [ ] Biografia e foto do Pe. Thiago Bonifácio (o cliente envia depois)
-- [ ] Foto do Pe. Luis Gabriel Barrero (ou autorização para usar a do site do distrito)
-- [ ] Texto sobre o apostolado em Curitiba (desde quando, como começou, atividades)
-- [ ] Logo e fotos (da capela, das Missas, da Casa do Padre)
-- [ ] Domínio desejado
+- [x] Foto do Pe. Thiago Bonifácio (recebida em 2026-10-17; src/assets/padre-thiago.jpg; aparece no Sobre e na home)
+- [ ] Biografia do Pe. Thiago Bonifácio (o cliente envia depois)
+- [x] Foto do Pe. Luis Gabriel Barrero (recebida em 2026-10-17; src/assets/padre-barrero.jpg; é pequena, 395 × 494 px; trocar por uma maior se houver)
+- [x] Foto de capa da home (recebida em 2026-10-17; padrão em src/assets/capa-missa.png, substituível no painel em Configurações → Foto da página inicial)
+- [x] Brasão do IBP (recebido em 2026-10-17; recortado em círculo transparente em src/assets/brasao.png; usado no cabeçalho, no rodapé e como ícone da aba)
+- [ ] Outras fotos (capela, Casa do Padre, notícias)
+- [ ] Domínio próprio (hoje o site está no endereço da Vercel)
 - [x] Redes sociais: Instagram @ibpcuritiba
-- [ ] Proposta de front-end
+- [x] Proposta de front-end (referência Sequel, decisão 9)
 
 ## Perguntas em aberto
 

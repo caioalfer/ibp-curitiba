@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# capturas de revisão do Impeccable (locais)
+.impeccable/review/
+
+# o modelo de variáveis pode ir para o repositório
+!.env.example
