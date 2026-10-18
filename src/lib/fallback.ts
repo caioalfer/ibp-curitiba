@@ -66,6 +66,9 @@ export const PADRES: Pessoa[] = [
     _id: "padre-thiago",
     nome: "Pe. Thiago Bonifácio",
     cargo: "Prior do Instituto Bom Pastor em Curitiba",
+    bio: paragrafos(
+      "Nascido em Ibirité, Minas Gerais, em 19 de março de 1990, foi ordenado sacerdote em 25 de junho de 2016.",
+    ),
   },
 ];
 

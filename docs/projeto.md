@@ -2,7 +2,7 @@
 
 Documento vivo do projeto: escopo, decisões e pendências. Atualizar a cada decisão nova.
 
-**Status (2026-10-17):** Fase 1 pronta e publicada (código no GitHub, site na Vercel; ver seção Publicação). Funcionam a home (próxima Missa, avisos, programação semanal, artigos, notícias, O Instituto), os horários, os avisos, as notícias, os artigos, o "Sobre" (história, Superior Geral, Prior de Curitiba), o botão de WhatsApp com seletor, o tema claro/escuro e o painel. Avisos, artigos e notícias ainda são **exemplos** marcados na tela. Faltam o projeto no Sanity, o número de WhatsApp, o local de cada horário e a biografia do Pe. Thiago. Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
+**Status (2026-10-17):** Fase 1 pronta e publicada (código no GitHub, site na Vercel; ver seção Publicação). Funcionam a home (próxima Missa, avisos, programação semanal, artigos, notícias, O Instituto), os horários, os avisos, as notícias, os artigos, o "Sobre" (história, Superior Geral, Prior de Curitiba), o botão de WhatsApp com seletor, o tema claro/escuro e o painel. Avisos, artigos e notícias ainda são **exemplos** marcados na tela. Faltam o projeto no Sanity, o número de WhatsApp e o local de cada horário. Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
 
 ---
 
@@ -163,7 +163,7 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 ### Sobre
 - **Confirmado** — **A história** do IBP: fundação, carisma e missão (decisão 13).
 - **Confirmado** — **O Superior Geral**: Pe. Luis Gabriel Barrero, com foto, cargo e biografia.
-- **Confirmado** — **O Prior de Curitiba**: Pe. Thiago Bonifácio, com foto e cargo (biografia a receber).
+- **Confirmado** — **O Prior de Curitiba**: Pe. Thiago Bonifácio, com foto, cargo e biografia.
 - Endereços dos dois locais ficam no rodapé e na página de horários, com link para o mapa.
 
 ### Tema claro e escuro
@@ -212,7 +212,7 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 - [x] História do IBP (base no site do distrito; revisar com o padre)
 - [x] Superiores definidos: Pe. Luis Gabriel Barrero e Pe. Thiago Bonifácio
 - [x] Foto do Pe. Thiago Bonifácio (recebida em 2026-10-17; src/assets/padre-thiago.jpg; aparece no Sobre e na home)
-- [ ] Biografia do Pe. Thiago Bonifácio (o cliente envia depois)
+- [x] Biografia do Pe. Thiago Bonifácio (recebida em 2026-10-17: nascido em Ibirité, MG, em 19/03/1990; ordenado em 25/06/2016)
 - [x] Foto do Pe. Luis Gabriel Barrero (recebida em 2026-10-17; src/assets/padre-barrero.jpg; é pequena, 395 × 494 px; trocar por uma maior se houver)
 - [x] Foto de capa da home (recebida em 2026-10-17; padrão em src/assets/capa-missa.png, substituível no painel em Configurações → Foto da página inicial)
 - [x] Brasão do IBP (recebido em 2026-10-17; recortado em círculo transparente em src/assets/brasao.png; usado no cabeçalho, no rodapé e como ícone da aba)
