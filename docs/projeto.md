@@ -2,7 +2,7 @@
 
 Documento vivo do projeto: escopo, decisões e pendências. Atualizar a cada decisão nova.
 
-**Status (2026-10-17):** Fase 1 pronta e publicada (código no GitHub, site na Vercel; ver seção Publicação). Funcionam a home (próxima Missa, avisos, programação semanal, artigos, notícias, O Instituto), os horários, os avisos, as notícias, os artigos, o "Sobre" (história, Superior Geral, Prior de Curitiba), o botão de WhatsApp com seletor, o tema claro/escuro e o painel. Avisos, artigos e notícias ainda são **exemplos** marcados na tela. Faltam o projeto no Sanity, o número de WhatsApp e o local de cada horário. Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
+**Status (2026-10-17):** Fase 1 pronta e publicada (código no GitHub, site na Vercel; ver seção Publicação). Funcionam a home (próxima Missa, avisos, programação semanal, artigos, notícias, O Instituto), os horários, os avisos, as notícias, os artigos, o "Sobre" (história, Superior Geral, Prior de Curitiba), o botão de WhatsApp com seletor, o tema claro/escuro e o painel. Avisos, artigos e notícias ainda são **exemplos** marcados na tela. Faltam o projeto no Sanity e o local de cada horário. Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
 
 ---
 
@@ -208,7 +208,7 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 - [x] Horários de Missa, confissão e demais atividades (ver seção Horários)
 - [ ] Local de cada horário e o que acontece às 6h30 de segunda a quarta
 - [x] Endereços: Casa do Padre (Rua Olavo Bilac, 76, Batel) e Capela da Imaculada Conceição (Av. Lamenha Lins, 2115, Rebouças)
-- [ ] Número(s) de WhatsApp para o botão de atendimento
+- [x] WhatsApp do botão de atendimento: +55 41 8526-6861 (recebido em 2026-10-17; o mesmo número para Confissão e Direção espiritual)
 - [x] História do IBP (base no site do distrito; revisar com o padre)
 - [x] Superiores definidos: Pe. Luis Gabriel Barrero e Pe. Thiago Bonifácio
 - [x] Foto do Pe. Thiago Bonifácio (recebida em 2026-10-17; src/assets/padre-thiago.jpg; aparece no Sobre e na home)

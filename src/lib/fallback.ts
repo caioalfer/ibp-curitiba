@@ -45,6 +45,8 @@ export const HORARIOS_PADRAO: HorarioPadrao[] = [
 ];
 
 export const CONFIGURACOES: Configuracoes = {
+  // WhatsApp do atendimento (+55 41 8526-6861), só números com DDI e DDD.
+  whatsapp: "554185266861",
   textoBotao: "Falar com o padre",
   opcoesAtendimento: [
     { rotulo: "Confissão", mensagem: "Olá, gostaria de agendar uma confissão." },
