@@ -13,8 +13,8 @@ export const sobre = defineType({
       to: [{ type: "pessoa" }],
     }),
     defineField({
-      name: "prior",
-      title: "Prior de Curitiba",
+      name: "paroco",
+      title: "Pároco de Curitiba",
       type: "reference",
       to: [{ type: "pessoa" }],
     }),

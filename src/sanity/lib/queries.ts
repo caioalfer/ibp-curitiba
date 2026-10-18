@@ -65,7 +65,7 @@ export type Pessoa = {
 export type Sobre = {
   historia?: PortableTextBlock[];
   superiorGeral?: Pessoa;
-  prior?: Pessoa;
+  paroco?: Pessoa;
 };
 
 export type Configuracoes = {
@@ -122,7 +122,7 @@ export const QUERY_ARTIGO = defineQuery(
 );
 
 export const QUERY_SOBRE = defineQuery(
-  `*[_id == "sobre"][0]{historia, superiorGeral->{_id, nome, cargo, foto, bio}, prior->{_id, nome, cargo, foto, bio}}`,
+  `*[_id == "sobre"][0]{historia, superiorGeral->{_id, nome, cargo, foto, bio}, paroco->{_id, nome, cargo, foto, bio}}`,
 );
 
 export const QUERY_CONFIGURACOES = defineQuery(

@@ -19,7 +19,7 @@ export default async function Home() {
     getConfiguracoes(),
     getSobre(),
   ]);
-  const superiores = [sobre.superiorGeral, sobre.prior].filter((p) => p !== undefined);
+  const superiores = [sobre.superiorGeral, sobre.paroco].filter((p) => p !== undefined);
   const agora = agoraEmCuritiba();
 
   return (

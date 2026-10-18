@@ -67,7 +67,7 @@ export const PADRES: Pessoa[] = [
   {
     _id: "padre-thiago",
     nome: "Pe. Thiago Bonifácio",
-    cargo: "Prior do Instituto Bom Pastor em Curitiba",
+    cargo: "Pároco do Instituto Bom Pastor em Curitiba",
     bio: paragrafos(
       "Nascido em Ibirité, Minas Gerais, em 19 de março de 1990, foi ordenado sacerdote em 25 de junho de 2016.",
     ),
@@ -81,5 +81,5 @@ export const SOBRE: Sobre = {
     "Sua missão é defender e difundir a Tradição católica sob todas as suas formas: doutrinal, apostólica e litúrgica. Em todos os atos litúrgicos, o Instituto usa exclusivamente o Rito Romano Tradicional, segundo os livros litúrgicos de 1962.",
   ),
   superiorGeral: PADRES[0],
-  prior: PADRES[1],
+  paroco: PADRES[1],
 };

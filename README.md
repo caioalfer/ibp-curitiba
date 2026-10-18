@@ -37,7 +37,7 @@ npx tsc --noEmit # checagem de tipos
 | `/avisos` | Avisos dentro da validade |
 | `/noticias` e `/noticias/[slug]` | Notícias com foto |
 | `/artigos` e `/artigos/[slug]` | Ensaios ("Palavra do padre"), com imagem, data e tema |
-| `/sobre` | A história do IBP, O Superior Geral e O Prior de Curitiba |
+| `/sobre` | A história do IBP, O Superior Geral e O Pároco de Curitiba |
 | `/studio` | Painel de administração (Sanity Studio) |
 | `/api/revalidar` | Webhook do Sanity para atualizar o site na hora |
 
@@ -98,7 +98,7 @@ Depois de cadastrar, faça um novo deploy (ou um novo push) para as variáveis v
 | **Horários padrão** | Página `/horarios`. Também valem para os dias que não têm programação semanal cadastrada. |
 | **Avisos** | Primeira seção da home e página `/avisos`. Somem sozinhos depois da data de validade. |
 | **Notícias / Artigos** | `/noticias` e `/artigos`, com prévia na home |
-| **Padres / Sobre** | `/sobre`: história, Superior Geral e Prior de Curitiba |
+| **Padres / Sobre** | `/sobre`: história, Superior Geral e Pároco de Curitiba |
 | **Configurações** | WhatsApp e opções do botão de atendimento, foto da página inicial, Instagram e e-mail |
 
 ## Estrutura

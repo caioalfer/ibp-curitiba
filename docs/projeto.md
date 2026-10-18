@@ -2,7 +2,7 @@
 
 Documento vivo do projeto: escopo, decisões e pendências. Atualizar a cada decisão nova.
 
-**Status (2026-10-17):** Fase 1 pronta e publicada (código no GitHub, site na Vercel; ver seção Publicação). Funcionam a home (próxima Missa, avisos, programação semanal, artigos, notícias, O Instituto), os horários, os avisos, as notícias, os artigos, o "Sobre" (história, Superior Geral, Prior de Curitiba), o botão de WhatsApp com seletor, o tema claro/escuro e o painel. Avisos, artigos e notícias ainda são **exemplos** marcados na tela. Faltam o projeto no Sanity e o local de cada horário. Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
+**Status (2026-10-17):** Fase 1 pronta e publicada (código no GitHub, site na Vercel; ver seção Publicação). Funcionam a home (próxima Missa, avisos, programação semanal, artigos, notícias, O Instituto), os horários, os avisos, as notícias, os artigos, o "Sobre" (história, Superior Geral, Pároco de Curitiba), o botão de WhatsApp com seletor, o tema claro/escuro e o painel. Avisos, artigos e notícias ainda são **exemplos** marcados na tela. Faltam o projeto no Sanity e o local de cada horário. Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
 
 ---
 
@@ -75,6 +75,7 @@ Levantado em 2026-10-17 a partir do site do distrito: [ibpamericalatina.org](htt
 | 11 | 2026-10-17 | **Modo claro e modo escuro.** Segue o tema do sistema automaticamente; no cabeçalho dá para escolher Automático, Claro ou Escuro (a escolha fica salva no navegador). Claro: fundo branco, "agora" em preto, véu branco sobre a foto do topo. Escuro: fundo preto, "agora" em creme (a lâmpada), véu preto sobre a foto. | Pedido do cliente: respeitar a preferência de cada pessoa. |
 | 12 | 2026-10-17 | Home com **uma seção por tópico**, nesta ordem: **Avisos** (primeira, logo após o topo), Esta semana, Palavra do padre (artigos), Notícias e O Instituto (primeira vez na Missa + superiores). Cada seção tem título, descrição e link para a página completa. Conteúdo de **exemplo** (avisos, artigos e notícias) em `src/lib/exemplos.ts`, marcado como "Exemplo" na tela e substituído automaticamente quando o painel estiver ligado. | Pedido do cliente: ilustrar o site e dar a cada tópico seu espaço na home. |
 | 13 | 2026-10-17 | Página Sobre com **seções dedicadas**: A história → **O Superior Geral** (Pe. Luis Gabriel Barrero) → **O Prior de Curitiba** (Pe. Thiago Bonifácio). No painel, "Sobre" tem os campos *Superior Geral* e *Prior de Curitiba* (antes era uma lista de superiores). A seção "Em Curitiba" foi removida por ser redundante com a do Prior. | Pedido do cliente: destacar cada um em sua própria seção. |
+| 14 | 2026-10-17 | O Pe. Thiago Bonifácio passa a ser apresentado como **Pároco de Curitiba** (antes "Prior"): seção "O Pároco de Curitiba" no Sobre, cargo "Pároco do Instituto Bom Pastor em Curitiba" e campo *Pároco de Curitiba* no painel. | Pedido do cliente. |
 
 ---
 
@@ -134,7 +135,7 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 
 ### Home
 - **Confirmado** — Topo com a foto da Missa e a **próxima Missa** em destaque (dia, hora, tipo, local e botão "Ver a semana").
-- **Confirmado** — Uma seção por tópico (decisão 12): **Avisos** (primeira), **Esta semana** (programação dos próximos 7 dias, editada pelo administrador), **Palavra do padre** (artigos), **Notícias** e **O Instituto** (primeira vez na Missa + Superior Geral e Prior).
+- **Confirmado** — Uma seção por tópico (decisão 12): **Avisos** (primeira), **Esta semana** (programação dos próximos 7 dias, editada pelo administrador), **Palavra do padre** (artigos), **Notícias** e **O Instituto** (primeira vez na Missa + Superior Geral e Pároco).
 - **Sugerido** — "Hoje no calendário litúrgico": festa do dia, classe e cor litúrgica (calendário de 1962).
 
 ### Botão de atendimento (WhatsApp)
@@ -163,7 +164,7 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 ### Sobre
 - **Confirmado** — **A história** do IBP: fundação, carisma e missão (decisão 13).
 - **Confirmado** — **O Superior Geral**: Pe. Luis Gabriel Barrero, com foto, cargo e biografia.
-- **Confirmado** — **O Prior de Curitiba**: Pe. Thiago Bonifácio, com foto, cargo e biografia.
+- **Confirmado** — **O Pároco de Curitiba**: Pe. Thiago Bonifácio, com foto, cargo e biografia.
 - Endereços dos dois locais ficam no rodapé e na página de horários, com link para o mapa.
 
 ### Tema claro e escuro

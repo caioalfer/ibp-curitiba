@@ -31,7 +31,7 @@ export default async function Sobre() {
 
         {sobre.superiorGeral && <SecaoPessoa id="superior-geral" titulo="O Superior Geral" pessoa={sobre.superiorGeral} />}
 
-        {sobre.prior && <SecaoPessoa id="prior" titulo="O Prior de Curitiba" pessoa={sobre.prior} />}
+        {sobre.paroco && <SecaoPessoa id="paroco" titulo="O Pároco de Curitiba" pessoa={sobre.paroco} />}
       </div>
     </Envoltorio>
   );

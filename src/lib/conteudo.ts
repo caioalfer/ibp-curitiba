@@ -30,7 +30,7 @@ import { CONFIGURACOES, HORARIOS_PADRAO, LOCAIS, SOBRE } from "./fallback";
 const SOBRE_LOCAL: Sobre = {
   ...SOBRE,
   superiorGeral: SOBRE.superiorGeral && { ...SOBRE.superiorGeral, fotoLocal: fotoBarrero, fotoFoco: "48% 28%" },
-  prior: SOBRE.prior && { ...SOBRE.prior, fotoLocal: fotoThiago, fotoFoco: "42% 30%" },
+  paroco: SOBRE.paroco && { ...SOBRE.paroco, fotoLocal: fotoThiago, fotoFoco: "42% 30%" },
 };
 import { montarProgramacao } from "./programacao";
 

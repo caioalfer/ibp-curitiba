@@ -37,7 +37,7 @@ async function semear() {
     _type: "sobre",
     historia: SOBRE.historia,
     superiorGeral: ref("padre-barrero"),
-    prior: ref("padre-thiago"),
+    paroco: ref("padre-thiago"),
   });
 
   tx.createIfNotExists({
