@@ -78,7 +78,7 @@ Sem configuração extra, o site busca o conteúdo novo a cada 5 minutos. Para a
 
 ## Publicação (Vercel)
 
-O repositório está conectado à Vercel: cada `git push` na branch `main` publica o site automaticamente, e cada pull request ganha um endereço de prévia.
+Endereço: **https://ibp-curitiba.vercel.app**. O repositório está conectado à Vercel: cada `git push` na branch `main` publica o site automaticamente, e cada pull request ganha um endereço de prévia. O `vercel.json` fixa o framework como Next.js (sem ele a Vercel detectava errado e procurava a pasta `dist`).
 
 Variáveis de ambiente a cadastrar na Vercel (**Project → Settings → Environment Variables**) quando o Sanity estiver pronto:
 

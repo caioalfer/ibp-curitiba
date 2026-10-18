@@ -197,8 +197,8 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 
 ## Publicação
 
-- **Código:** repositório público no GitHub. Branch principal: `main`.
-- **Hospedagem:** Vercel, conectada ao repositório: cada push na `main` publica o site; cada pull request ganha uma prévia.
+- **Código:** https://github.com/caioalfer/ibp-curitiba (público). Branch principal: `main`.
+- **Hospedagem:** Vercel, em **https://ibp-curitiba.vercel.app**, conectada ao repositório: cada push na `main` publica o site; cada pull request ganha uma prévia.
 - **Variáveis de ambiente** a cadastrar na Vercel quando o Sanity existir: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`, `SANITY_REVALIDATE_SECRET` (ver README).
 
 ---
