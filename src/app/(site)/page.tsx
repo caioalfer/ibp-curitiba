@@ -44,7 +44,7 @@ export default async function Home() {
         <Envoltorio className="relative flex flex-1 flex-col justify-between gap-16">
           <h1
             id="titulo-inicio"
-            className="max-w-3xl text-[clamp(1.75rem,3.6vw,2.75rem)] leading-[1.1] font-light tracking-[-0.025em] text-tinta/80"
+            className="max-w-3xl text-base leading-snug font-normal text-tinta/80 md:text-[clamp(1.75rem,3.6vw,2.75rem)] md:leading-[1.1] md:font-light md:tracking-[-0.025em]"
           >
             Instituto Bom Pastor. A Missa Tradicional em Curitiba, no rito de 1962.
           </h1>
