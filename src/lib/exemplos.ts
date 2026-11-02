@@ -9,8 +9,9 @@ import peregrinacao from "@/assets/exemplos/peregrinacao-aparecida.jpg";
 import beleza from "@/assets/exemplos/beleza-anunciacao-fra-angelico.jpg";
 import silencio from "@/assets/exemplos/silencio-la-tour.jpg";
 import tempo from "@/assets/exemplos/tempo-agostinho-champaigne.jpg";
-import type { Aviso, Publicacao } from "@/sanity/lib/queries";
+import type { Aviso, HorarioPadrao, Publicacao } from "@/sanity/lib/queries";
 import { somarDias } from "./datas";
+import { HORARIOS_PADRAO, LOCAIS } from "./fallback";
 
 /** Parágrafos; "## " no início vira subtítulo, "> " vira citação. */
 function corpo(...trechos: string[]): PortableTextBlock[] {
@@ -25,6 +26,18 @@ function corpo(...trechos: string[]): PortableTextBlock[] {
       children: [{ _type: "span", _key: `s${i}`, text: texto, marks: [] }],
     };
   });
+}
+
+/**
+ * Horários padrão com locais FICTÍCIOS, marcados na tela. Quem define o local de verdade é o
+ * administrador, na programação semanal. Não vão para o painel: scripts/semear.ts usa só HORARIOS_PADRAO.
+ */
+export function horariosExemplo(): HorarioPadrao[] {
+  const [capela, casa] = LOCAIS;
+  const localDoDia = (dia: string) => (["seg", "ter", "qua", "sab"].includes(dia) ? casa : capela);
+  return HORARIOS_PADRAO.flatMap((h) =>
+    h.dias.map((dia) => ({ ...h, dias: [dia], local: localDoDia(dia), localExemplo: true })),
+  );
 }
 
 export function avisosExemplo(hoje: string): Aviso[] {

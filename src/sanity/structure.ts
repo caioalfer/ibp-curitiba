@@ -14,6 +14,10 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem("local").title("Locais"),
       S.documentTypeListItem("pessoa").title("Padres"),
       S.listItem().title("Sobre").id("sobre").child(S.document().schemaType("sobre").documentId("sobre")),
+      S.listItem()
+        .title("Construção da capela")
+        .id("capela")
+        .child(S.document().schemaType("capela").documentId("capela")),
       S.divider(),
       S.listItem()
         .title("Configurações")

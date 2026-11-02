@@ -1,6 +1,6 @@
 # Site do Instituto Bom Pastor – Curitiba
 
-Site do apostolado do Instituto Bom Pastor em Curitiba (Missa Tradicional, rito de 1962).
+Site do apostolado do Instituto Bom Pastor em Curitiba (Missa Tradicional, rito tridentino).
 
 - **Stack:** Next.js 16 (App Router) + Tailwind CSS 4 + Sanity (painel em `/studio`).
 - **Escopo, decisões e pendências:** [docs/projeto.md](docs/projeto.md).
@@ -37,7 +37,9 @@ npx tsc --noEmit # checagem de tipos
 | `/avisos` | Avisos dentro da validade |
 | `/noticias` e `/noticias/[slug]` | Notícias com foto |
 | `/artigos` e `/artigos/[slug]` | Ensaios ("Palavra do padre"), com imagem, data e tema |
-| `/sobre` | A história do IBP, O Superior Geral e O Pároco de Curitiba |
+| `/capela` | Construção da capela: o projeto, fotos da obra e como doar (QR code, Pix copia e cola, transferência) |
+| `/doacoes` | Os dois destinos de doação, cada um com o seu Pix: projeto da capela e manutenção básica da casa |
+| `/sobre` | A história do IBP, O Superior Geral, O Superior do Distrito e O Pároco de Curitiba |
 | `/studio` | Painel de administração (Sanity Studio) |
 | `/api/revalidar` | Webhook do Sanity para atualizar o site na hora |
 
@@ -98,7 +100,8 @@ Depois de cadastrar, faça um novo deploy (ou um novo push) para as variáveis v
 | **Horários padrão** | Página `/horarios`. Também valem para os dias que não têm programação semanal cadastrada. |
 | **Avisos** | Primeira seção da home e página `/avisos`. Somem sozinhos depois da data de validade. |
 | **Notícias / Artigos** | `/noticias` e `/artigos`, com prévia na home |
-| **Padres / Sobre** | `/sobre`: história, Superior Geral e Pároco de Curitiba |
+| **Padres / Sobre** | `/sobre`: história, Superior Geral, Superior do Distrito e Pároco de Curitiba |
+| **Construção da capela** | Resumo na home com o botão "Quero ajudar" e a página `/capela` (texto do projeto e fotos). Os dados de doação **não** ficam no painel: estão em `src/lib/doacao.ts`. Desmarque "Mostrar no site" quando a campanha terminar. |
 | **Configurações** | WhatsApp e opções do botão de atendimento, foto da página inicial, Instagram e e-mail |
 
 ## Estrutura
@@ -120,3 +123,4 @@ docs/projeto.md          escopo, decisões e pendências
 
 - **Fotos e brasão** enviados pelo cliente: `src/assets/capa-missa.png`, `brasao.png`, `padre-barrero.jpg`, `padre-thiago.jpg`, `exemplos/peregrinacao-aparecida.jpg`.
 - **Pinturas em domínio público** (Wikimedia Commons) usadas nos ensaios de exemplo: La Tour, Philippe de Champaigne e Fra Angelico, em `src/assets/exemplos/`. O crédito aparece na página de cada ensaio.
+- **Arte do projeto da capela**, enviada pelo cliente: `src/assets/projeto-capela.jpg`. Vale até o painel ter outra imagem em "Construção da capela".

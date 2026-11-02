@@ -3,23 +3,25 @@ import Link from "next/link";
 import { ListaAvisos } from "@/components/ListaAvisos";
 import { Programacao } from "@/components/Programacao";
 import { ProximaMissa } from "@/components/ProximaMissa";
+import { SecaoCapela } from "@/components/SecaoCapela";
 import { ListaArtigos, ListaPublicacoes } from "@/components/Publicacoes";
 import { Envoltorio } from "@/components/Titulo";
-import { getArtigos, getAvisos, getConfiguracoes, getNoticias, getProgramacao, getSobre } from "@/lib/conteudo";
+import { getArtigos, getAvisos, getCapela, getConfiguracoes, getNoticias, getProgramacao, getSobre } from "@/lib/conteudo";
 import { agoraEmCuritiba } from "@/lib/datas";
 import { urlImagem } from "@/sanity/lib/image";
 import fotoCapaPadrao from "@/assets/capa-missa.png";
 
 export default async function Home() {
-  const [dias, avisos, noticias, artigos, config, sobre] = await Promise.all([
+  const [dias, avisos, noticias, artigos, config, sobre, capela] = await Promise.all([
     getProgramacao(),
     getAvisos(),
     getNoticias(2),
     getArtigos(3),
     getConfiguracoes(),
     getSobre(),
+    getCapela(),
   ]);
-  const superiores = [sobre.superiorGeral, sobre.paroco].filter((p) => p !== undefined);
+  const superiores = [sobre.superiorGeral, sobre.superiorDistrito, sobre.paroco].filter((p) => p !== undefined);
   const agora = agoraEmCuritiba();
 
   return (
@@ -46,7 +48,7 @@ export default async function Home() {
             id="titulo-inicio"
             className="max-w-3xl text-base leading-snug font-normal text-tinta/80 md:text-[clamp(1.75rem,3.6vw,2.75rem)] md:leading-[1.1] md:font-light md:tracking-[-0.025em]"
           >
-            Instituto Bom Pastor. A Missa Tradicional em Curitiba, no rito de 1962.
+            Instituto Bom Pastor. A Missa Tradicional em Curitiba, no rito tridentino.
           </h1>
 
           <ProximaMissa dias={dias} agoraServidor={agora} />
@@ -68,6 +70,17 @@ export default async function Home() {
         >
           <Programacao dias={dias} agoraServidor={agora} />
         </Secao>
+
+        {capela.ativa && (
+          <Secao
+            id="capela"
+            titulo={capela.titulo || "Construção da capela"}
+            descricao="A obra depende da generosidade dos fiéis."
+            link={{ href: "/capela", rotulo: "Sobre o projeto" }}
+          >
+            <SecaoCapela capela={capela} />
+          </Secao>
+        )}
 
         {artigos.length > 0 && (
           <Secao
@@ -101,8 +114,8 @@ export default async function Home() {
             <div className="flex flex-col gap-6 rounded-[10px] bg-placa p-7 md:p-9">
               <p className="text-[1.75rem] leading-tight font-light tracking-[-0.025em]">Primeira vez na Missa Tradicional?</p>
               <p className="text-lg text-suave">
-                O Instituto Bom Pastor celebra exclusivamente no Rito Romano Tradicional, segundo os livros litúrgicos de
-                1962. Todos são bem-vindos: venha alguns minutos antes, acompanhe pelo missal e, se precisar, fale com o
+                O Instituto Bom Pastor celebra exclusivamente no rito tridentino, a forma extraordinária do Rito Romano.
+                Todos são bem-vindos: venha alguns minutos antes, acompanhe pelo missal e, se precisar, fale com o
                 padre ao fim da Missa.
               </p>
               <Link href="/horarios" className="link-sutil mt-auto self-start font-medium">
@@ -113,6 +126,20 @@ export default async function Home() {
               <ul className="flex flex-col rounded-[10px] border border-linha">
                 {superiores.map((p) => (
                   <li key={p._id} className="flex items-center gap-5 border-b border-linha p-7 last:border-b-0 md:p-9">
+                    {!p.foto && !p.fotoLocal && (
+                      // Sem foto ainda: iniciais, para a lista ficar alinhada.
+                      <span
+                        aria-hidden="true"
+                        className="flex size-16 shrink-0 items-center justify-center rounded-full bg-placa text-lg font-light text-suave md:size-20"
+                      >
+                        {p.nome
+                          .replace(/^Pe\.\s*/, "")
+                          .split(/\s+/)
+                          .filter((_, i, a) => i === 0 || i === a.length - 1)
+                          .map((n) => n[0])
+                          .join("")}
+                      </span>
+                    )}
                     {(p.foto || p.fotoLocal) && (
                       <span className="relative size-16 shrink-0 overflow-hidden rounded-full md:size-20">
                         <Image
@@ -151,7 +178,7 @@ function Secao({
   id: string;
   titulo: string;
   descricao: string;
-  link: { href: string; rotulo: string };
+  link?: { href: string; rotulo: string };
   children: React.ReactNode;
 }) {
   return (
@@ -164,7 +191,7 @@ function Secao({
             </h2>
             <p className="mt-3 text-lg text-suave">{descricao}</p>
           </div>
-          <LinkTodos href={link.href}>{link.rotulo}</LinkTodos>
+          {link && <LinkTodos href={link.href}>{link.rotulo}</LinkTodos>}
         </div>
         {children}
       </Envoltorio>

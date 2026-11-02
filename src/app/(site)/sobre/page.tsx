@@ -31,6 +31,10 @@ export default async function Sobre() {
 
         {sobre.superiorGeral && <SecaoPessoa id="superior-geral" titulo="O Superior Geral" pessoa={sobre.superiorGeral} />}
 
+        {sobre.superiorDistrito && (
+          <SecaoPessoa id="superior-distrito" titulo="O Superior do Distrito" pessoa={sobre.superiorDistrito} />
+        )}
+
         {sobre.paroco && <SecaoPessoa id="paroco" titulo="O Pároco de Curitiba" pessoa={sobre.paroco} />}
       </div>
     </Envoltorio>

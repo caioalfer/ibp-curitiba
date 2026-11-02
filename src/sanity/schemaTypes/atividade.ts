@@ -4,6 +4,20 @@ import { HORA_REGEX, TIPOS_ATIVIDADE } from "../lib/constantes";
 export { rotuloTipo } from "../lib/constantes";
 
 // Campos comuns a um horário padrão e a um item da programação semanal.
+/** Local de um item da programação semanal: é o administrador quem define, a cada semana. */
+export const campoLocalSemana = defineField({
+  name: "local",
+  title: "Local",
+  type: "reference",
+  to: [{ type: "local" }],
+  description: "Onde será: na Capela ou na Casa do Padre. Obrigatório, a menos que o horário esteja cancelado.",
+  validation: (r) =>
+    r.custom((valor, contexto) => {
+      const cancelado = (contexto.parent as { cancelado?: boolean } | undefined)?.cancelado;
+      return valor || cancelado ? true : "Escolha o local deste horário.";
+    }),
+});
+
 export const camposAtividade = [
   defineField({
     name: "hora",
@@ -31,6 +45,7 @@ export const camposAtividade = [
     title: "Local",
     type: "reference",
     to: [{ type: "local" }],
+    description: "Opcional. Se preenchido, já vem marcado em cada semana nova; o administrador pode mudar.",
   }),
   defineField({
     name: "nota",

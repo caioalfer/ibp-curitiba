@@ -2,7 +2,7 @@ import { defineArrayMember, defineField, defineType } from "sanity";
 import { agoraEmCuritiba, codigoDia, diaMesCurto, nomeDia, segundaDaSemana, somarDias } from "../../lib/datas";
 import { apiVersion } from "../env";
 import { CORES_LITURGICAS } from "../lib/constantes";
-import { camposAtividade, rotuloTipo } from "./atividade";
+import { campoLocalSemana, camposAtividade, rotuloTipo } from "./atividade";
 
 type Padrao = {
   dias?: string[];
@@ -112,7 +112,8 @@ export const semana = defineType({
           type: "object",
           fields: [
             defineField({ name: "data", title: "Dia", type: "date", validation: (r) => r.required() }),
-            ...camposAtividade,
+            ...camposAtividade.filter((campo) => campo.name !== "local"),
+            campoLocalSemana,
             defineField({
               name: "cancelado",
               title: "Cancelado",

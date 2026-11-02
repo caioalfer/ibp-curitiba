@@ -44,6 +44,16 @@ export function Rodape({ locais, config }: { locais: Local[]; config: Configurac
                   Avisos
                 </Link>
               </li>
+              <li>
+                <Link href="/capela" className="link-sutil">
+                  Construção da capela
+                </Link>
+              </li>
+              <li>
+                <Link href="/doacoes" className="link-sutil">
+                  Doações
+                </Link>
+              </li>
             </ul>
           </div>
           <div>

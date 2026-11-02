@@ -7,7 +7,7 @@
  * Usa createIfNotExists: não sobrescreve nada que já tenha sido editado no painel.
  */
 import { getCliClient } from "sanity/cli";
-import { CONFIGURACOES, HORARIOS_PADRAO, LOCAIS, PADRES, SOBRE } from "../src/lib/fallback";
+import { AVISO_CAPELA, CAPELA, CONFIGURACOES, HORARIOS_PADRAO, LOCAIS, PADRES, SOBRE } from "../src/lib/fallback";
 
 const client = getCliClient({ apiVersion: "2026-10-01" });
 
@@ -37,8 +37,12 @@ async function semear() {
     _type: "sobre",
     historia: SOBRE.historia,
     superiorGeral: ref("padre-barrero"),
+    superiorDistrito: ref("padre-daniel"),
     paroco: ref("padre-thiago"),
   });
+
+  tx.createIfNotExists({ _id: "capela", _type: "capela", ...CAPELA });
+  tx.createIfNotExists({ ...AVISO_CAPELA, _type: "aviso" });
 
   tx.createIfNotExists({
     _id: "configuracoes",

@@ -13,6 +13,12 @@ export const sobre = defineType({
       to: [{ type: "pessoa" }],
     }),
     defineField({
+      name: "superiorDistrito",
+      title: "Superior do Distrito América Latina",
+      type: "reference",
+      to: [{ type: "pessoa" }],
+    }),
+    defineField({
       name: "paroco",
       title: "Pároco de Curitiba",
       type: "reference",
@@ -20,6 +26,55 @@ export const sobre = defineType({
     }),
   ],
   preview: { prepare: () => ({ title: "Sobre" }) },
+});
+
+export const capela = defineType({
+  name: "capela",
+  title: "Construção da capela",
+  type: "document",
+  fields: [
+    defineField({
+      name: "ativa",
+      title: "Mostrar no site",
+      type: "boolean",
+      description: "Desmarque quando a campanha terminar: a seção some da página inicial.",
+      initialValue: true,
+    }),
+    defineField({ name: "titulo", title: "Título", type: "string", initialValue: "Construção da capela" }),
+    defineField({
+      name: "resumo",
+      title: "Resumo (página inicial)",
+      type: "text",
+      rows: 3,
+      description: "Duas ou três frases. Aparecem na página inicial, com o botão \"Quero ajudar\".",
+    }),
+    defineField({
+      name: "texto",
+      title: "Sobre o projeto (página da capela)",
+      type: "textoRico",
+      description: "O texto completo da página /capela: o projeto, o andamento da obra, como ajudar.",
+    }),
+    defineField({
+      name: "imagem",
+      title: "Foto principal da obra ou do projeto",
+      type: "image",
+      options: { hotspot: true },
+      fields: [defineField({ name: "alt", title: "Descrição da imagem", type: "string" })],
+    }),
+    defineField({
+      name: "galeria",
+      title: "Mais fotos da obra",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "image",
+          options: { hotspot: true },
+          fields: [defineField({ name: "alt", title: "Descrição da imagem", type: "string" })],
+        }),
+      ],
+    }),
+  ],
+  preview: { prepare: () => ({ title: "Construção da capela" }) },
 });
 
 export const configuracoes = defineType({

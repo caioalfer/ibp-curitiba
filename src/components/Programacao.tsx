@@ -4,6 +4,7 @@ import { diaMes, formatarHora, nomeDia, somarDias } from "@/lib/datas";
 import { ehMissa, proximaMissa, type DiaProgramacao } from "@/lib/programacao";
 import { CORES_LITURGICAS, rotuloTipo } from "@/sanity/lib/constantes";
 import type { ItemProgramacao } from "@/sanity/lib/queries";
+import { SeloExemplo } from "./SeloExemplo";
 import { useAgora } from "./useAgora";
 
 type Agora = { data: string; hora: string };
@@ -26,9 +27,16 @@ export function Programacao({ dias, agoraServidor }: { dias: DiaProgramacao[]; a
   const proxima = proximaMissa(semana, agora);
 
   const semLocal = semana.some((d) => d.itens.some((i) => !i.local));
+  const localExemplo = semana.some((d) => d.itens.some((i) => i.localExemplo));
 
   return (
     <>
+    {localExemplo && (
+      <p className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-suave">
+        <SeloExemplo />
+        Os locais abaixo são fictícios, ainda não confirmados.
+      </p>
+    )}
     {semLocal && (
       <p className="mb-6 text-suave">
         O local de cada horário ainda será confirmado.{" "}

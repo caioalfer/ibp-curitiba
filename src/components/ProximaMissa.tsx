@@ -4,6 +4,7 @@ import { formatarHora, nomeDia, somarDias } from "@/lib/datas";
 import { proximaMissa, type DiaProgramacao } from "@/lib/programacao";
 import { rotuloTipo } from "@/sanity/lib/constantes";
 import { urlMapa } from "./LinkMapa";
+import { SeloExemplo } from "./SeloExemplo";
 import { useAgora } from "./useAgora";
 
 /** A frase-lâmpada da home: "A próxima Missa é hoje, às 19h30." */
@@ -49,6 +50,11 @@ export function ProximaMissa({ dias, agoraServidor }: { dias: DiaProgramacao[]; 
           <a href="/horarios#locais" className="link-sutil text-tinta">
             Local a confirmar, ver endereços
           </a>
+        )}
+        {missa.localExemplo && (
+          <span className="ml-3 inline-block align-middle">
+            <SeloExemplo />
+          </span>
         )}
       </p>
       <a href="#semana" className="pill pill-contorno mt-8">

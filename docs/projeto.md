@@ -2,7 +2,17 @@
 
 Documento vivo do projeto: escopo, decisões e pendências. Atualizar a cada decisão nova.
 
-**Status (2026-10-17):** Fase 1 pronta e publicada (código no GitHub, site na Vercel; ver seção Publicação). Funcionam a home (próxima Missa, avisos, programação semanal, artigos, notícias, O Instituto), os horários, os avisos, as notícias, os artigos, o "Sobre" (história, Superior Geral, Pároco de Curitiba), o botão de WhatsApp com seletor, o tema claro/escuro e o painel. Avisos, artigos e notícias ainda são **exemplos** marcados na tela. Faltam o projeto no Sanity e o local de cada horário. Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
+**Status (2026-11-02):** Fase 1 publicada na versão de 2026-10-17 (GitHub + Vercel; ver seção Publicação). A versão local, ainda **sem commit**, tem também: página /capela, página /doacoes com os dois Pix reais, Pe. Daniel, endereço novo e local em cada horário. Avisos, artigos, notícias e os locais dos horários ainda são **exemplos** marcados na tela. O painel `/studio` está pronto, mas desligado (falta o projeto no Sanity). Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
+
+**Plano do painel e da segurança:** [painel-e-seguranca.md](painel-e-seguranca.md) (proposta de 2026-11-02, aguardando decisões).
+
+### Onde paramos (2026-11-02)
+
+- **Feito (decisões 12 a 16):** rito sem o ano; Casa do Padre na Rua Nunes Machado, 2040 – Rebouças; Pe. Daniel Pinheiro no Sobre e na home; campanha da capela (aviso, seção na home, página /capela com a arte enviada); local em cada horário, definido pelo administrador; dois Pix reais em `src/lib/doacao.ts` e página /doacoes.
+- **Sem commit:** tudo isso está só na máquina local. Antes de publicar, confirmar se os locais fictícios podem ir ao ar.
+- **Verificado no Pix:** o QR do projeto, lido da tela nas páginas /capela e /doacoes, nos dois temas, é igual ao código esperado. **Falta o teste real:** um Pix de valor baixo em mais de um banco.
+- **Pendências do cliente:** titular da conta do Inter; cidade da Associação Civil São Pio V (usamos Curitiba no QR); nome e situação da capela do projeto; se o título vira "Projeto Capela da Imaculada Conceição".
+- **Próximo passo técnico:** [plano do painel e da segurança](painel-e-seguranca.md): criar o projeto no Sanity, decidir o plano e quem publica.
 
 ---
 
@@ -27,13 +37,13 @@ Levantado em 2026-10-17 a partir do site do distrito: [ibpamericalatina.org](htt
 - **Seminário:** São Vicente de Paulo, em Courtalain, França (fundado em outubro de 2006).
 - **Primeira casa:** Igreja Saint-Éloi, em Bordeaux (2007), erigida como paróquia pessoal.
 - **Missão:** "Defender e difundir a Tradição católica sob todas as suas formas: doutrinal, apostólica e litúrgica."
-- **Liturgia:** exclusivamente o Rito Romano Tradicional (livros litúrgicos de 1962).
+- **Liturgia:** exclusivamente o rito tridentino, a forma extraordinária do Rito Romano. O site não cita o ano dos livros litúrgicos (pedido do cliente, 2026-10-26).
 - **Formação:** tomista. O apostolado inclui paróquias, capelanias, escolas, retiros, obras de caridade, cursos e conferências.
 - **2026 = 20 anos do IBP.** O site do distrito já publicou um comunicado sobre o jubileu, com indulgência plenária. É um bom gancho para o lançamento do site.
 
 ### Superiores
 - **Superior geral:** Pe. Luis Gabriel Barrero, eleito em 28/08/2019 (segundo superior geral). Nasceu em Bogotá em 05/12/1966 e foi ordenado em 14/12/1997. Entrou no IBP em 2014.
-- **Superior do Distrito América Latina:** Pe. Daniel Pinheiro, desde 2018, sediado em Brasília. Não entra no site, mas fica registrado aqui.
+- **Superior do Distrito América Latina:** Pe. Daniel Pinheiro, desde 2018, sediado em Brasília. Entra no site (decisão 12).
 
 ### Distrito América Latina
 - **Casas fixas:** Bogotá, Brasília, Belém, Curitiba e São Paulo.
@@ -44,7 +54,7 @@ Levantado em 2026-10-17 a partir do site do distrito: [ibpamericalatina.org](htt
 ### Curitiba (o que existe hoje)
 - **Padre:** Pe. Thiago Bonifácio. A página dele no site do distrito não tem biografia.
 - **Locais:**
-  - Casa do Padre (Casa Canônica): Rua Olavo Bilac, 76, Batel
+  - Casa do Padre (Casa Canônica): Rua Nunes Machado, 2040, Rebouças (atualizado em 2026-10-26; antes constava Rua Olavo Bilac, 76, Batel)
   - Capela da Imaculada Conceição: Av. Lamenha Lins, 2115, Rebouças
   - A home do distrito indica que há Missa nos dois locais.
 - **Contato publicado:** apenas o Instagram [@ibpcuritiba](https://www.instagram.com/ibpcuritiba/). Não há telefone, WhatsApp nem e-mail.
@@ -73,6 +83,11 @@ Levantado em 2026-10-17 a partir do site do distrito: [ibpamericalatina.org](htt
 | 9 | 2026-10-17 | Visual: referência **Sequel** (fundo preto, creme como único destaque, sans leve + serif itálica na palavra-chave), adaptada como **"Lâmpada do Santíssimo"**: a próxima Missa é a única coisa "acesa" (creme) no site; na semana, o que já passou fica apagado e o cancelado, riscado. Fontes: Geist + Instrument Serif. | Escolha do cliente. A ideia da lâmpada transforma a tarefa principal (achar a próxima Missa) no elemento mais visível. |
 | 10 | 2026-10-17 | **Fundo branco** no site. Só o topo da home fica escuro, com a foto da Missa e a próxima Missa em creme. Na semana, a próxima Missa e o "Hoje" viram uma faixa preta ("marcado a tinta"). Botão principal preto; creme só sobre a foto. | Melhor leitura para idosos, ao sol e em textos longos. A foto mantém o clima no topo. |
 | 11 | 2026-10-17 | **Modo claro e modo escuro.** Segue o tema do sistema automaticamente; no cabeçalho dá para escolher Automático, Claro ou Escuro (a escolha fica salva no navegador). Claro: fundo branco, "agora" em preto, véu branco sobre a foto do topo. Escuro: fundo preto, "agora" em creme (a lâmpada), véu preto sobre a foto. | Pedido do cliente: respeitar a preferência de cada pessoa. |
+| 12 | 2026-10-26 | Correções do cliente: (a) sem citar o ano do rito, só "rito tridentino, forma extraordinária do Rito Romano"; (b) Casa do Padre na Rua Nunes Machado, 2040 – Rebouças; (c) Pe. Daniel Pinheiro, Superior do Distrito América Latina desde 2018, entra no Sobre e na home; (d) seção **Construção da capela** na home (texto, foto, Pix e WhatsApp, editável no painel) e aviso fixo apontando para ela. | Pedido do cliente. |
+| 13 | 2026-10-26 | Página **/capela** sobre o projeto da capela: texto do projeto, foto principal, galeria da obra e quadro "Contribua" com a chave Pix (botão de copiar) e o WhatsApp. O "Quero ajudar" da home, o aviso e o rodapé levam para ela. Foto do Pe. Daniel recebida. | Pedido do cliente. |
+| 14 | 2026-10-26 | A seção e a página da capela **não são de contato**: só mostram como doar. Quadro "Como doar" com QR code do Pix (gerado pelo site a partir da chave, do favorecido e da cidade, no padrão BR Code do Banco Central; ou um QR enviado no painel), Pix copia e cola, chave com botão de copiar e dados para transferência (banco, agência, conta, favorecido, CNPJ). Enquanto o painel não tem os dados reais, aparecem dados **fictícios** marcados como "Exemplo", com aviso para não transferir. | Pedido do cliente. |
+| 15 | 2026-11-02 | **Local em cada horário** (Capela ou Casa do Padre) na programação e nos horários habituais. Quem define é o administrador em cada programação semanal: o painel só publica a semana com o local escolhido, exceto em horários cancelados. Até lá, locais **fictícios** marcados como "Exemplo" (não vão para o painel). Arte do "Projeto Capela da Imaculada Conceição", enviada pelo cliente, substitui a ilustração de exemplo. | Pedido do cliente. |
+| 16 | 2026-11-02 | **Dois Pix reais.** Projeto da capela: Associação Civil São Pio V (Bradesco, chave CNPJ). Manutenção básica da casa: chave curitibaibp@gmail.com (Inter). Saem os dados fictícios. Os dados ficam em `src/lib/doacao.ts`, fora do painel (ver [painel-e-seguranca.md](painel-e-seguranca.md), seção 3). Nova página **/doacoes** com os dois destinos; a /capela mostra só o Pix do projeto. | Dados do cliente; ficar fora do painel protege contra a troca da chave. |
 | 12 | 2026-10-17 | Home com **uma seção por tópico**, nesta ordem: **Avisos** (primeira, logo após o topo), Esta semana, Palavra do padre (artigos), Notícias e O Instituto (primeira vez na Missa + superiores). Cada seção tem título, descrição e link para a página completa. Conteúdo de **exemplo** (avisos, artigos e notícias) em `src/lib/exemplos.ts`, marcado como "Exemplo" na tela e substituído automaticamente quando o painel estiver ligado. | Pedido do cliente: ilustrar o site e dar a cada tópico seu espaço na home. |
 | 13 | 2026-10-17 | Página Sobre com **seções dedicadas**: A história → **O Superior Geral** (Pe. Luis Gabriel Barrero) → **O Prior de Curitiba** (Pe. Thiago Bonifácio). No painel, "Sobre" tem os campos *Superior Geral* e *Prior de Curitiba* (antes era uma lista de superiores). A seção "Em Curitiba" foi removida por ser redundante com a do Prior. | Pedido do cliente: destacar cada um em sua própria seção. |
 | 14 | 2026-10-17 | O Pe. Thiago Bonifácio passa a ser apresentado como **Pároco de Curitiba** (antes "Prior"): seção "O Pároco de Curitiba" no Sobre, cargo "Pároco do Instituto Bom Pastor em Curitiba" e campo *Pároco de Curitiba* no painel. | Pedido do cliente. |
@@ -118,7 +133,7 @@ Recebidos em 2026-10-17, a partir de um post do Instagram @ibpcuritiba.
 
 **A confirmar:**
 - O que acontece às 6h30 de segunda a quarta. Provavelmente é Missa rezada, mas a imagem está cortada no topo.
-- O local de cada horário (Casa do Padre, no Batel, ou Capela da Imaculada Conceição, no Rebouças).
+- O local de cada horário (Casa do Padre ou Capela da Imaculada Conceição, ambas no Rebouças).
 - Se há confissão nos dias de semana (antes das Missas ou a pedido).
 
 ### Modelagem
@@ -136,7 +151,7 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 ### Home
 - **Confirmado** — Topo com a foto da Missa e a **próxima Missa** em destaque (dia, hora, tipo, local e botão "Ver a semana").
 - **Confirmado** — Uma seção por tópico (decisão 12): **Avisos** (primeira), **Esta semana** (programação dos próximos 7 dias, editada pelo administrador), **Palavra do padre** (artigos), **Notícias** e **O Instituto** (primeira vez na Missa + Superior Geral e Pároco).
-- **Sugerido** — "Hoje no calendário litúrgico": festa do dia, classe e cor litúrgica (calendário de 1962).
+- **Sugerido** — "Hoje no calendário litúrgico": festa do dia, classe e cor litúrgica (calendário tradicional).
 
 ### Botão de atendimento (WhatsApp)
 - **Confirmado** — Um botão fixo (ex.: "Falar com o padre"), visível em todas as páginas.
@@ -207,8 +222,8 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 ## Informações pendentes (a receber)
 
 - [x] Horários de Missa, confissão e demais atividades (ver seção Horários)
-- [ ] Local de cada horário e o que acontece às 6h30 de segunda a quarta
-- [x] Endereços: Casa do Padre (Rua Olavo Bilac, 76, Batel) e Capela da Imaculada Conceição (Av. Lamenha Lins, 2115, Rebouças)
+- [ ] O que acontece às 6h30 de segunda a quarta (o local de cada horário será definido pelo administrador, decisão 15)
+- [x] Endereços: Casa do Padre (Rua Nunes Machado, 2040, Rebouças) e Capela da Imaculada Conceição (Av. Lamenha Lins, 2115, Rebouças)
 - [x] WhatsApp do botão de atendimento: +55 41 8526-6861 (recebido em 2026-10-17; o mesmo número para Confissão e Direção espiritual)
 - [x] História do IBP (base no site do distrito; revisar com o padre)
 - [x] Superiores definidos: Pe. Luis Gabriel Barrero e Pe. Thiago Bonifácio
@@ -217,7 +232,14 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 - [x] Foto do Pe. Luis Gabriel Barrero (recebida em 2026-10-17; src/assets/padre-barrero.jpg; é pequena, 395 × 494 px; trocar por uma maior se houver)
 - [x] Foto de capa da home (recebida em 2026-10-17; padrão em src/assets/capa-missa.png, substituível no painel em Configurações → Foto da página inicial)
 - [x] Brasão do IBP (recebido em 2026-10-17; recortado em círculo transparente em src/assets/brasao.png; usado no cabeçalho, no rodapé e como ícone da aba)
-- [ ] Outras fotos (capela, Casa do Padre, notícias)
+- [x] Superior do Distrito: Pe. Daniel Pinheiro, com foto (recebida em 2026-10-26; src/assets/padre-daniel.png) e biografia do site do distrito
+- [x] Capela – dados para doação (recebidos em 2026-11-02; src/lib/doacao.ts)
+- [ ] Pix da manutenção da casa: **titular da conta** do Inter (sem ele, a página mostra só a chave, sem QR code)
+- [ ] Testar os dois Pix com valor baixo, em mais de um banco, antes de divulgar
+- [ ] **Capela – texto do projeto** revisado pelo padre (o atual é genérico, escrito por nós) e, se quiserem, onde fica, meta e andamento
+- [x] Arte do Projeto Capela da Imaculada Conceição (recebida em 2026-11-02; src/assets/projeto-capela.jpg)
+- [ ] **Capela – fotos** da obra, se quiserem mostrar (galeria da página /capela)
+- [ ] Outras fotos (capela atual, Casa do Padre, notícias)
 - [ ] Domínio próprio (hoje o site está no endereço da Vercel)
 - [x] Redes sociais: Instagram @ibpcuritiba
 - [x] Proposta de front-end (referência Sequel, decisão 9)
@@ -226,5 +248,5 @@ Legenda: **Confirmado** = decidido · **Sugerido** = proposto, aguardando valida
 
 - Quem vai alimentar o site (padre, secretária, outra pessoa)?
 - Vão receber doações e ofertas de intenção pelo site?
-- As doações vão para Curitiba ou para o distrito? Linkar para a página de doações do site do distrito ou ter um Pix próprio?
+- Doações gerais (além da capela): ter uma página própria ou linkar a página de doações do site do distrito?
 - O site do distrito pode ser usado como fonte de textos e fotos (história, superior geral)?

@@ -14,6 +14,8 @@ export type Atividade = {
   titulo?: string;
   nota?: string;
   local?: Local;
+  /** Só na demonstração (src/lib/exemplos.ts): local fictício, marcado na tela. */
+  localExemplo?: boolean;
 };
 
 export type HorarioPadrao = Atividade & { dias: Dia[] };
@@ -65,7 +67,20 @@ export type Pessoa = {
 export type Sobre = {
   historia?: PortableTextBlock[];
   superiorGeral?: Pessoa;
+  superiorDistrito?: Pessoa;
   paroco?: Pessoa;
+};
+
+export type Capela = {
+  ativa?: boolean;
+  titulo?: string;
+  resumo?: string;
+  texto?: PortableTextBlock[];
+  imagem?: ImagemComAlt;
+  galeria?: ImagemComAlt[];
+  /** Arte da campanha no projeto (src/assets), usada quando o painel não tem imagem. */
+  imagemLocal?: StaticImageData;
+  imagemAlt?: string;
 };
 
 export type Configuracoes = {
@@ -122,7 +137,11 @@ export const QUERY_ARTIGO = defineQuery(
 );
 
 export const QUERY_SOBRE = defineQuery(
-  `*[_id == "sobre"][0]{historia, superiorGeral->{_id, nome, cargo, foto, bio}, paroco->{_id, nome, cargo, foto, bio}}`,
+  `*[_id == "sobre"][0]{historia, superiorGeral->{_id, nome, cargo, foto, bio}, superiorDistrito->{_id, nome, cargo, foto, bio}, paroco->{_id, nome, cargo, foto, bio}}`,
+);
+
+export const QUERY_CAPELA = defineQuery(
+  `*[_id == "capela"][0]{ativa, titulo, resumo, texto, imagem, galeria}`,
 );
 
 export const QUERY_CONFIGURACOES = defineQuery(

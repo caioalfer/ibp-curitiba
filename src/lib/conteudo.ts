@@ -4,6 +4,7 @@ import {
   QUERY_ARTIGO,
   QUERY_ARTIGOS,
   QUERY_AVISOS,
+  QUERY_CAPELA,
   QUERY_CONFIGURACOES,
   QUERY_HORARIOS_PADRAO,
   QUERY_LOCAIS,
@@ -12,6 +13,7 @@ import {
   QUERY_SEMANAS,
   QUERY_SOBRE,
   type Aviso,
+  type Capela,
   type Configuracoes,
   type HorarioPadrao,
   type Local,
@@ -21,15 +23,18 @@ import {
   type Sobre,
 } from "@/sanity/lib/queries";
 import { agoraEmCuritiba, somarDias } from "./datas";
-import { artigosExemplo, avisosExemplo, noticiasExemplo } from "./exemplos";
+import { artigosExemplo, avisosExemplo, horariosExemplo, noticiasExemplo } from "./exemplos";
 import fotoBarrero from "@/assets/padre-barrero.jpg";
 import fotoThiago from "@/assets/padre-thiago.jpg";
-import { CONFIGURACOES, HORARIOS_PADRAO, LOCAIS, SOBRE } from "./fallback";
+import fotoDaniel from "@/assets/padre-daniel.png";
+import arteCapela from "@/assets/projeto-capela.jpg";
+import { AVISO_CAPELA, CAPELA, CONFIGURACOES, LOCAIS, SOBRE } from "./fallback";
 
 // A foto entra aqui, e não em fallback.ts, porque fallback.ts também é lido pelo script de carga do Sanity.
 const SOBRE_LOCAL: Sobre = {
   ...SOBRE,
   superiorGeral: SOBRE.superiorGeral && { ...SOBRE.superiorGeral, fotoLocal: fotoBarrero, fotoFoco: "48% 28%" },
+  superiorDistrito: SOBRE.superiorDistrito && { ...SOBRE.superiorDistrito, fotoLocal: fotoDaniel, fotoFoco: "50% 26%" },
   paroco: SOBRE.paroco && { ...SOBRE.paroco, fotoLocal: fotoThiago, fotoFoco: "42% 30%" },
 };
 import { montarProgramacao } from "./programacao";
@@ -38,7 +43,7 @@ export function getHorariosPadrao() {
   return sanityFetch<HorarioPadrao[]>({
     query: QUERY_HORARIOS_PADRAO,
     tags: ["horarioPadrao", "local"],
-    semSanity: HORARIOS_PADRAO,
+    semSanity: horariosExemplo(),
   });
 }
 
@@ -71,7 +76,7 @@ export function getAvisos() {
     query: QUERY_AVISOS,
     params: { hoje: agoraEmCuritiba().data },
     tags: ["aviso"],
-    semSanity: avisosExemplo(agoraEmCuritiba().data),
+    semSanity: [AVISO_CAPELA, ...avisosExemplo(agoraEmCuritiba().data)],
   });
 }
 
@@ -113,6 +118,22 @@ export function getArtigo(slug: string) {
 
 export async function getSobre() {
   return (await sanityFetch<Sobre | null>({ query: QUERY_SOBRE, tags: ["sobre", "pessoa"], semSanity: SOBRE_LOCAL })) ?? {};
+}
+
+// Arte da campanha enviada pelo cliente: vale até o painel ter outra imagem.
+const ARTE_CAPELA: Capela = {
+  imagemLocal: arteCapela,
+  imagemAlt:
+    "Projeto Capela da Imaculada Conceição. Junte-se a milhares de católicos que, como São Pio V, amam a Liturgia Romana. Ilustração da fachada de uma igreja com torre sineira.",
+};
+
+export async function getCapela() {
+  const capela = await sanityFetch<Capela | null>({
+    query: QUERY_CAPELA,
+    tags: ["capela"],
+    semSanity: CAPELA,
+  });
+  return { ...ARTE_CAPELA, ...capela };
 }
 
 export async function getConfiguracoes() {

@@ -22,8 +22,8 @@ Site oficial do apostolado do IBP em Curitiba. A tarefa principal é responder *
 
 ## Operating Context
 
-- Rito Romano Tradicional (livros de 1962): Missa rezada, Missa cantada, Exposição do Santíssimo, Santo Terço, confissões antes das Missas.
-- Dois locais: Capela da Imaculada Conceição (Av. Lamenha Lins, 2115, Rebouças) e Casa do Padre (Rua Olavo Bilac, 76, Batel).
+- Rito tridentino, a forma extraordinária do Rito Romano (o site não cita o ano dos livros litúrgicos): Missa rezada, Missa cantada, Exposição do Santíssimo, Santo Terço, confissões antes das Missas.
+- Dois locais: Capela da Imaculada Conceição (Av. Lamenha Lins, 2115, Rebouças) e Casa do Padre (Rua Nunes Machado, 2040, Rebouças).
 - Ritmo semanal: os horários padrão são a base, e a programação de cada semana (segunda a domingo) é ajustada pelo administrador.
 - 2026 marca os 20 anos do IBP (fundado em 8 set. 2006).
 

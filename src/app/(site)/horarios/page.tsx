@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { urlMapa } from "@/components/LinkMapa";
+import { SeloExemplo } from "@/components/SeloExemplo";
 import { Envoltorio, TituloPagina, TituloSecao } from "@/components/Titulo";
 import { getHorariosPadrao, getLocais } from "@/lib/conteudo";
 import { formatarHora } from "@/lib/datas";
@@ -18,6 +19,13 @@ export default async function Horarios() {
       <TituloPagina sub="A regra de cada semana. Festas e mudanças aparecem na programação da página inicial.">
         Horários <em>habituais</em>
       </TituloPagina>
+
+      {padroes.some((p) => p.localExemplo) && (
+        <p className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-suave">
+          <SeloExemplo />
+          Os locais abaixo são fictícios, ainda não confirmados.
+        </p>
+      )}
 
       <ol className="border-t border-linha">
         {ORDEM.map((dia) => {

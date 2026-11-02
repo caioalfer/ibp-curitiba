@@ -39,7 +39,15 @@ export function montarProgramacao(
         origem: "padrao",
         itens: padroes
           .filter((p) => p.dias.includes(codigo))
-          .map((p) => ({ hora: p.hora, tipo: p.tipo, titulo: p.titulo, nota: p.nota, local: p.local, data }))
+          .map((p) => ({
+            hora: p.hora,
+            tipo: p.tipo,
+            titulo: p.titulo,
+            nota: p.nota,
+            local: p.local,
+            localExemplo: p.localExemplo,
+            data,
+          }))
           .sort(porHora),
       });
     }
