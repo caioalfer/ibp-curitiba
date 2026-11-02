@@ -2,14 +2,14 @@
 
 Documento vivo do projeto: escopo, decisões e pendências. Atualizar a cada decisão nova.
 
-**Status (2026-11-02):** Fase 1 publicada na versão de 2026-10-17 (GitHub + Vercel; ver seção Publicação). A versão local, ainda **sem commit**, tem também: página /capela, página /doacoes com os dois Pix reais, Pe. Daniel, endereço novo e local em cada horário. Avisos, artigos, notícias e os locais dos horários ainda são **exemplos** marcados na tela. O painel `/studio` está pronto, mas desligado (falta o projeto no Sanity). Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
+**Status (2026-11-02):** Publicado em https://ibp-curitiba.vercel.app (commit bc30105): home, horários com local, avisos, notícias, artigos, Sobre, página /capela, página /doacoes com os dois Pix reais, botão de WhatsApp e tema claro/escuro. Avisos, artigos, notícias e os locais dos horários ainda são **exemplos** marcados na tela. O painel `/studio` está pronto, mas desligado (falta o projeto no Sanity). Visual em [DESIGN.md](../DESIGN.md); instruções técnicas no [README](../README.md).
 
-**Plano do painel e da segurança:** [painel-e-seguranca.md](painel-e-seguranca.md) (proposta de 2026-11-02, aguardando decisões).
+**Plano de administração e segurança:** [painel-e-seguranca.md](painel-e-seguranca.md) (2026-11-02, com decisões em aberto).
 
 ### Onde paramos (2026-11-02)
 
 - **Feito (decisões 12 a 16):** rito sem o ano; Casa do Padre na Rua Nunes Machado, 2040 – Rebouças; Pe. Daniel Pinheiro no Sobre e na home; campanha da capela (aviso, seção na home, página /capela com a arte enviada); local em cada horário, definido pelo administrador; dois Pix reais em `src/lib/doacao.ts` e página /doacoes.
-- **Sem commit:** tudo isso está só na máquina local. Antes de publicar, confirmar se os locais fictícios podem ir ao ar.
+- **Publicado:** tudo isso foi ao ar em 2026-11-02, inclusive os locais fictícios, marcados como "Exemplo". Os dois Pix reais estão no ar: **fazer o teste com valor baixo antes de divulgar**.
 - **Verificado no Pix:** o QR do projeto, lido da tela nas páginas /capela e /doacoes, nos dois temas, é igual ao código esperado. **Falta o teste real:** um Pix de valor baixo em mais de um banco.
 - **Pendências do cliente:** titular da conta do Inter; cidade da Associação Civil São Pio V (usamos Curitiba no QR); nome e situação da capela do projeto; se o título vira "Projeto Capela da Imaculada Conceição".
 - **Próximo passo técnico:** [plano do painel e da segurança](painel-e-seguranca.md): criar o projeto no Sanity, decidir o plano e quem publica.
