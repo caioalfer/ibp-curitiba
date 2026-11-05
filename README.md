@@ -35,12 +35,13 @@ npx tsc --noEmit # checagem de tipos
 | `/` | Topo com foto e a **próxima Missa**; seções de Avisos, Esta semana (programação dos próximos 7 dias), Palavra do padre (artigos), Notícias e O Instituto |
 | `/horarios` | Horários habituais por dia e os dois locais com link para o mapa |
 | `/avisos` | Avisos dentro da validade |
-| `/noticias` e `/noticias/[slug]` | Notícias com foto |
-| `/artigos` e `/artigos/[slug]` | Ensaios ("Palavra do padre"), com imagem, data e tema |
+| `/noticias` e `/noticias/[slug]` | Notícias com foto; as 12 mais recentes em destaque, todas as anteriores no **Arquivo**, por ano, e **busca** por título, resumo, tema ou data |
+| `/artigos` e `/artigos/[slug]` | Ensaios ("Palavra do padre"), com imagem, data e tema; os 10 mais recentes em destaque, todos os anteriores no **Arquivo**, por ano, e **busca** por título, resumo, tema ou data |
 | `/capela` | Construção da capela: o projeto, fotos da obra e como doar (QR code, Pix copia e cola, transferência) |
 | `/doacoes` | Os dois destinos de doação, cada um com o seu Pix: projeto da capela e manutenção básica da casa |
 | `/sobre` | A história do IBP, O Superior Geral, O Superior do Distrito e O Pároco de Curitiba |
-| `/studio` | Painel de administração (Sanity Studio) |
+| `/painel` | **Painel de administração** (login com Google): Programação da semana e Avisos |
+| `/studio` | Sanity Studio, só para o desenvolvedor (conteúdo que muda raramente) |
 | `/api/revalidar` | Webhook do Sanity para atualizar o site na hora |
 
 Em todas as páginas há o botão **"Falar com o padre"**: abre um seletor (Confissão, Direção espiritual) e leva ao WhatsApp com a mensagem pronta. No celular ele fica flutuando no rodapé da tela.
@@ -67,6 +68,16 @@ O site segue o tema do sistema (claro ou escuro) automaticamente. No cabeçalho 
 5. Abra `/studio`. Em **Configurações**, preencha o número de WhatsApp e, se quiser, a foto da página inicial. Em **Padres**, envie as fotos do Pe. Barrero e do Pe. Thiago (as fotos atuais estão em `src/assets` e só valem enquanto o painel não tiver as suas).
 6. Convide o administrador em **sanity.io/manage → Members**. O login é pelo Google, pelo GitHub ou por e-mail e senha do próprio Sanity.
 
+## Painel (`/painel`)
+
+Painel próprio, com o visual do site. Detalhes de segurança em [docs/painel-e-seguranca.md](docs/painel-e-seguranca.md).
+
+- **Login:** só Google, só os e-mails da variável `PAINEL_ACESSOS` (formato `email:admin,email:editor`). Para liberar ou tirar alguém, edite essa variável (no `.env.local` e na Vercel).
+- **Programação** (`/painel/semana`): esta semana e a próxima. "Ajustar esta semana" copia os horários padrão; depois dá para escolher o local de cada horário (ou de todos de uma vez), cancelar, acrescentar, remover e destacar a festa do dia.
+- **Avisos** (`/painel/avisos`): publicar, editar, republicar e excluir.
+- Cada gravação guarda quem alterou e quando, e atualiza o site na hora.
+- Variáveis necessárias (ver `.env.example`): `SANITY_WRITE_TOKEN`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `PAINEL_ACESSOS`.
+
 ## Revalidação (publicar → aparecer no site)
 
 Sem configuração extra, o site busca o conteúdo novo a cada 5 minutos. Para atualizar na hora:
@@ -91,6 +102,17 @@ Variáveis de ambiente a cadastrar na Vercel (**Project → Settings → Environ
 | `SANITY_REVALIDATE_SECRET` | o mesmo segredo do webhook |
 
 Depois de cadastrar, faça um novo deploy (ou um novo push) para as variáveis valerem.
+
+## Ao trocar o domínio
+
+O endereço do site está cadastrado em vários serviços. Ao passar para um domínio próprio, **mantenha o endereço antigo funcionando até o novo estar testado** e atualize:
+
+1. **Vercel:** adicionar o domínio (Project → Settings → Domains) e configurar o DNS.
+2. **Google Cloud** ([console.cloud.google.com/auth/clients](https://console.cloud.google.com/auth/clients), cliente `Painel do site`): adicionar o URI de redirecionamento `https://NOVO-DOMINIO/api/auth/callback/google`. Sem isso o login do `/painel` falha com `redirect_uri_mismatch`. Pode levar de minutos a algumas horas para valer.
+3. **Vercel → Environment Variables:** trocar `NEXTAUTH_URL` para `https://NOVO-DOMINIO` e publicar de novo.
+4. **Sanity** ([sanity.io/manage](https://www.sanity.io/manage), projeto `xuak6t0d`): adicionar `https://NOVO-DOMINIO` em **API → CORS origins** (com credentials) e trocar a URL do webhook para `https://NOVO-DOMINIO/api/revalidar`.
+5. Testar: login no `/painel`, uma publicação aparecendo no site e o `/studio`.
+6. Só então remover o endereço antigo do Google e do CORS do Sanity.
 
 ## Como o conteúdo funciona
 

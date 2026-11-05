@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { Imagem } from "@/components/Imagem";
 import { notFound } from "next/navigation";
 import { ComoDoar } from "@/components/ComoDoar";
 import { ImagemCapela } from "@/components/ImagemCapela";
@@ -50,7 +50,7 @@ export default async function Capela() {
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {capela.galeria.map((foto, i) => (
               <li key={i} className="relative aspect-[4/3] overflow-hidden rounded-[10px] bg-placa">
-                <Image
+                <Imagem
                   src={urlImagem(foto).width(900).height(675).fit("crop").url()}
                   alt={foto.alt ?? ""}
                   fill

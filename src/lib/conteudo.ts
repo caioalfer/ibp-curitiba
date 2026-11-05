@@ -2,6 +2,7 @@ import "server-only";
 import { sanityFetch } from "@/sanity/lib/client";
 import {
   QUERY_ARTIGO,
+  QUERY_ARQUIVO,
   QUERY_ARTIGOS,
   QUERY_AVISOS,
   QUERY_CAPELA,
@@ -16,7 +17,9 @@ import {
   type Capela,
   type Configuracoes,
   type HorarioPadrao,
+  type ItemArquivo,
   type Local,
+  type Pessoa,
   type Publicacao,
   type PublicacaoResumo,
   type Semana,
@@ -30,13 +33,27 @@ import fotoDaniel from "@/assets/padre-daniel.png";
 import arteCapela from "@/assets/projeto-capela.jpg";
 import { AVISO_CAPELA, CAPELA, CONFIGURACOES, LOCAIS, SOBRE } from "./fallback";
 
-// A foto entra aqui, e não em fallback.ts, porque fallback.ts também é lido pelo script de carga do Sanity.
-const SOBRE_LOCAL: Sobre = {
-  ...SOBRE,
-  superiorGeral: SOBRE.superiorGeral && { ...SOBRE.superiorGeral, fotoLocal: fotoBarrero, fotoFoco: "48% 28%" },
-  superiorDistrito: SOBRE.superiorDistrito && { ...SOBRE.superiorDistrito, fotoLocal: fotoDaniel, fotoFoco: "50% 26%" },
-  paroco: SOBRE.paroco && { ...SOBRE.paroco, fotoLocal: fotoThiago, fotoFoco: "42% 30%" },
+// Fotos dos padres que estão no projeto (src/assets). Valem enquanto o padre não tiver foto no Sanity.
+// Ficam aqui, e não em fallback.ts, porque fallback.ts também é lido pelo script de carga do Sanity.
+const FOTOS_LOCAIS: Record<string, Pick<Pessoa, "fotoLocal" | "fotoFoco">> = {
+  "padre-barrero": { fotoLocal: fotoBarrero, fotoFoco: "48% 28%" },
+  "padre-daniel": { fotoLocal: fotoDaniel, fotoFoco: "50% 26%" },
+  "padre-thiago": { fotoLocal: fotoThiago, fotoFoco: "42% 30%" },
 };
+
+function comFotoLocal(p: Pessoa | undefined): Pessoa | undefined {
+  if (!p || p.foto) return p;
+  return { ...p, ...FOTOS_LOCAIS[p._id] };
+}
+
+function comFotosLocais(sobre: Sobre): Sobre {
+  return {
+    ...sobre,
+    superiorGeral: comFotoLocal(sobre.superiorGeral),
+    superiorDistrito: comFotoLocal(sobre.superiorDistrito),
+    paroco: comFotoLocal(sobre.paroco),
+  };
+}
 import { montarProgramacao } from "./programacao";
 
 export function getHorariosPadrao() {
@@ -107,6 +124,21 @@ export function getArtigos(limite = 50) {
   });
 }
 
+/**
+ * Lista leve de notícias ou artigos (sem imagem), a partir da posição `desde` (0 = todos).
+ * Nada sai do ar; os registros vão se acumulando ao longo dos anos.
+ */
+export function getArquivo(tipo: "noticia" | "artigo", desde: number) {
+  const hoje = agoraEmCuritiba().data;
+  const exemplos = tipo === "noticia" ? noticiasExemplo(hoje) : artigosExemplo(hoje);
+  return sanityFetch<ItemArquivo[]>({
+    query: QUERY_ARQUIVO,
+    params: { tipo, desde, ate: desde + 10000 },
+    tags: [tipo],
+    semSanity: exemplos.slice(desde),
+  });
+}
+
 export function getArtigo(slug: string) {
   return sanityFetch<Publicacao | null>({
     query: QUERY_ARTIGO,
@@ -117,7 +149,8 @@ export function getArtigo(slug: string) {
 }
 
 export async function getSobre() {
-  return (await sanityFetch<Sobre | null>({ query: QUERY_SOBRE, tags: ["sobre", "pessoa"], semSanity: SOBRE_LOCAL })) ?? {};
+  const sobre = await sanityFetch<Sobre | null>({ query: QUERY_SOBRE, tags: ["sobre", "pessoa"], semSanity: SOBRE });
+  return comFotosLocais(sobre ?? {});
 }
 
 // Arte da campanha enviada pelo cliente: vale até o painel ter outra imagem.

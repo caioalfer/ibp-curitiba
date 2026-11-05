@@ -5,7 +5,9 @@ export const client = createClient({
   projectId: projectId || "nao-configurado",
   dataset,
   apiVersion,
-  useCdn: true,
+  // Sem o CDN do Sanity: o Next já guarda as páginas em cache, e o CDN levaria alguns segundos para refletir
+  // uma alteração. Lendo direto, o que o painel publica aparece no site na hora (updateTag/webhook).
+  useCdn: false,
 });
 
 // Tempo máximo até o site refletir uma edição, caso o webhook de revalidação não esteja configurado.

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Imagem } from "./Imagem";
 import { urlImagem } from "@/sanity/lib/image";
 import type { Capela } from "@/sanity/lib/queries";
 
@@ -8,7 +8,7 @@ export function ImagemCapela({ capela, prioridade = false }: { capela: Capela; p
   return (
     <figure className="mb-10">
       {capela.imagem ? (
-        <Image
+        <Imagem
           src={urlImagem(capela.imagem).width(1400).url()}
           alt={capela.imagem.alt ?? ""}
           width={1400}
@@ -18,7 +18,7 @@ export function ImagemCapela({ capela, prioridade = false }: { capela: Capela; p
           className="h-auto w-full rounded-[10px]"
         />
       ) : (
-        <Image
+        <Imagem
           src={capela.imagemLocal!}
           alt={capela.imagemAlt ?? ""}
           priority={prioridade}

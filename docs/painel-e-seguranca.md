@@ -5,7 +5,7 @@ Como o site será administrado, como será protegido e o que fazer se algo der e
 **Status:** o painel `/studio` está pronto, mas desligado, porque ainda não há projeto no Sanity. Das medidas abaixo, só as marcadas com `[x]` estão aplicadas. As demais são plano.
 
 **Em resumo:**
-- O administrador usa o **Sanity Studio**. Login, senhas e banco de dados ficam com o Sanity, não com a gente.
+- O administrador usa um **painel próprio** em `/painel`, com o mesmo visual do site. O login é com Google: a senha e a verificação em duas etapas ficam com o Google, e só entram os e-mails liberados. O conteúdo continua guardado no Sanity.
 - Os **dados de doação ficam no código**, fora do painel.
 - **O Pix só muda pelo código**, pelo desenvolvedor, como parte do serviço de manutenção. Cada troca fica no histórico do Git (seção 3).
 - O site **não coleta dados pessoais**, então o foco é impedir fraude e conteúdo falso, não vazamento.
@@ -15,8 +15,8 @@ Como o site será administrado, como será protegido e o que fazer se algo der e
 
 | # | Decisão | Situação |
 |---|---|---|
-| A | Painel: Sanity Studio, não um painel próprio | Proposta, aguarda confirmação |
-| B | Plano do Sanity: pedir o plano sem fins lucrativos e começar no Free (seção 4) | **Em aberto** |
+| A | Painel próprio em `/painel`, com login Google (NextAuth.js) e o conteúdo no Sanity. O Studio do Sanity fica só para o desenvolvedor, para o que muda raramente (seção 4) | Decidida em 2026-11-05 |
+| B | Plano do Sanity: Free basta, porque no Sanity só entram o desenvolvedor e a chave do servidor (seção 4) | Proposta |
 | C | Dados do Pix e do banco no código (`src/lib/doacao.ts`) | Aplicada em 2026-11-02; reversível |
 | D | Quem publica no dia a dia: padre, secretária ou outra pessoa | **Em aberto** |
 | E | Este documento e `docs/` devem ficar no repositório público? (ver "Sobre este documento") | **Em aberto** |
@@ -66,25 +66,30 @@ Em 2026-11-05 avaliamos um registro de toda ação na administração que ningu�
 
 ### Quem acessa o quê
 
-| Pessoa | Sanity | GitHub e Vercel |
-|---|---|---|
-| Desenvolvedor (Caio) | Administrador | Dono |
-| Segundo administrador de confiança, para não perder o acesso (a definir) | Administrador | Sem acesso |
-| Quem publica no dia a dia (a definir) | Editor | Sem acesso |
-| Quem escreve sem publicar, se houver | Colaborador | Sem acesso |
+| Pessoa | Painel `/painel` | Sanity (Studio) | GitHub e Vercel |
+|---|---|---|---|
+| Desenvolvedor (Caio) | admin | Administrador | Dono |
+| Segundo administrador de confiança, para não perder o acesso (sugestão: `curitibaibp@gmail.com`, com o padre) | admin | Sem acesso, ou Administrador | Sem acesso |
+| Quem publica no dia a dia (a definir) | editor | Sem acesso | Sem acesso |
 
-Regras: uma conta por pessoa, nunca compartilhada, e acesso removido no mesmo dia em que alguém deixar a função.
+Regras: uma conta por pessoa, nunca compartilhada, e acesso removido no mesmo dia em que alguém deixar a função. No painel, liberar ou tirar o acesso é editar a variável `PAINEL_ACESSOS` na Vercel.
+
+### Como o painel protege o acesso
+- **Login com Google** (NextAuth.js). Não guardamos senha. Só e-mails verificados pelo Google e presentes em `PAINEL_ACESSOS` entram.
+- **Sessão** num cookie HttpOnly, com o conteúdo criptografado por `NEXTAUTH_SECRET`; vale 7 dias.
+- **Toda página e toda ação** do painel conferem a sessão **e** se o e-mail continua liberado (`src/lib/painel/sessao.ts`). Tirar o e-mail de `PAINEL_ACESSOS` corta o acesso na próxima ação, mesmo com sessão aberta.
+- **A chave de escrita do Sanity** (`SANITY_WRITE_TOKEN`) fica só no servidor, em variável da Vercel, e só é usada depois da checagem de acesso. Nunca vai para o navegador nem para o GitHub.
+- **Quem fez o quê:** como todas as gravações saem da mesma chave, cada conteúdo editado pelo painel guarda o e-mail de quem editou e quando.
+- **Segredos** (`NEXTAUTH_SECRET`, `GOOGLE_CLIENT_SECRET`, `SANITY_WRITE_TOKEN`) só em `.env.local` e nas variáveis da Vercel. A lista de e-mails também fica em variável, não no código.
 
 ### Onde cada coisa é alterada
 
-| No painel | No código (passa pelo desenvolvedor) |
-|---|---|
-| Programação semanal, com o local de cada horário | Chaves Pix e dados bancários |
-| Avisos, notícias e artigos | Regras e aparência do site |
-| Horários padrão e locais | |
-| Padres e texto do Sobre | |
-| Campanha da capela: texto, resumo, fotos, mostrar ou esconder | |
-| Configurações: WhatsApp, Instagram, e-mail, foto da home | |
+| No painel `/painel` | No Studio do Sanity (só o desenvolvedor, por enquanto) | No código (passa pelo desenvolvedor) |
+|---|---|---|
+| Programação semanal, com o local de cada horário | Horários padrão e locais | Chaves Pix e dados bancários |
+| Avisos | Padres e texto do Sobre | Regras e aparência do site |
+| Notícias e artigos (etapa 2) | Campanha da capela: texto, resumo, fotos, mostrar ou esconder | |
+| | Configurações: WhatsApp, Instagram, e-mail, foto da home | |
 
 ### Rotina do administrador
 
@@ -103,28 +108,35 @@ Regras: uma conta por pessoa, nunca compartilhada, e acesso removido no mesmo di
 | Histórico para revisar alterações | 3 dias | "Espelha o Growth" | 90 dias |
 | Registro de atividades | Não | "Espelha o Growth" | 90 dias |
 
-- **Free:** quem edita precisa ser Administrador, com acesso a todas as configurações. Serve para começar só com o desenvolvedor.
-- **Sem fins lucrativos:** exige formulário com um Project ID válido, e a resposta leva até 14 dias úteis. A página não cita igrejas ou organizações religiosas, então a aprovação não é garantida.
-- **Se for negado:** assinar o Growth (US$ 15 por usuário ao mês), ou seguir no Free com só o desenvolvedor publicando.
+- **Com o painel próprio, o Free basta:** no Sanity só entram o desenvolvedor e a chave do servidor. Os papéis de quem publica (admin, editor) são definidos no nosso painel, não no Sanity.
+- **Sem fins lucrativos:** opcional; daria 90 dias de histórico em vez de 3. Exige formulário com um Project ID válido, e a resposta leva até 14 dias úteis. A página não cita igrejas ou organizações religiosas.
 - **Limites em todos esses planos:** não há permissão por tipo de conteúdo, log de auditoria completo, SSO nem backup gerenciado; isso é do Enterprise. Um Editor pode alterar qualquer documento do painel, e esconder um campo na tela não protege de verdade. Por isso existem a decisão C e as medidas de backup e alerta.
 
 ## 5. Medidas de segurança
 
 ### Contas
 - [ ] 2FA no GitHub e na Vercel
-- [ ] Login do Sanity por um único método para todos. A conta é ligada ao método: entrar por outro cria outra conta, sem acesso.
+- [ ] Login do Sanity do desenvolvedor por um único método (Google). A conta é ligada ao método: entrar por outro cria outra conta, sem acesso.
 - [ ] Usar Google com 2FA, de preferência chave de acesso (passkey)
 - [ ] Domínio próprio, quando houver: registro e DNS em conta com 2FA
 
+### Painel `/painel`
+- [x] Login só com Google e só e-mails em `PAINEL_ACESSOS` (testado em 2026-11-05 com sessões de teste: sem sessão e e-mail fora da lista são barrados)
+- [x] Checagem de acesso em toda página do painel, inclusive do e-mail na lista a cada acesso
+- [x] Painel fora dos buscadores (`noindex`)
+- [x] Checagem de acesso e validação de tudo o que vem do navegador em toda ação de gravação (Avisos e Programação)
+- [x] Registro de quem editou em cada conteúdo (`atualizadoPor` e `atualizadoEm` nos avisos e na programação)
+- Observação: o modo "Teste" do Google **não** serve de segunda trava. Para login com Google só com nome, e-mail e foto, o Google deixa qualquer conta entrar mesmo em modo Teste. Quem barra é a nossa lista `PAINEL_ACESSOS`.
+
 ### Sanity
-- [ ] CORS só com os endereços exatos do site e `localhost`, sem curingas
-- [ ] Sem tokens de escrita permanentes; se um for necessário, um por finalidade, guardado como segredo
+- [x] CORS só com os endereços exatos do site e `localhost`, sem curingas (`localhost:3000`, `localhost:3333`, `ibp-curitiba.vercel.app`)
+- [ ] Um único token de escrita, só para o painel (`SANITY_WRITE_TOKEN`), guardado como segredo na Vercel; trocar se houver suspeita
 - [ ] Nenhuma informação confidencial publicada no painel. O dataset é público: tudo que é publicado pode ser lido por qualquer pessoa. Rascunhos não são servidos sem login (documentação do Sanity).
 - [x] O site lê o conteúdo publicado sem token
 - [x] Regra do local obrigatório na programação semanal (escrita; testar quando o painel for ligado)
 
 ### Site
-- [x] Sem login próprio e sem coleta de dados pessoais
+- [x] Sem coleta de dados pessoais do público (o painel guarda só o e-mail de quem edita)
 - [x] Webhook `/api/revalidar` só aceita chamada com assinatura válida
 - [x] `/studio` marcado como `noindex`
 - [x] HTTPS forçado (`Strict-Transport-Security`, enviado pela Vercel)
@@ -155,14 +167,22 @@ Regras: uma conta por pessoa, nunca compartilhada, e acesso removido no mesmo di
 
 Cada fase só termina quando o critério dela estiver cumprido.
 
-### Fase 1: ligar o painel
+### Fase 1: ligar o Sanity e o login
 1. ~~Revisar e publicar o que está sem commit.~~ Feito em 2026-11-02.
-2. Caio cria o projeto no Sanity, com conta com 2FA, e passa o Project ID.
-3. Configurar variáveis locais e na Vercel, CORS e webhook.
-4. Rodar a carga inicial (`scripts/semear.ts`). Ela não envia conteúdo de exemplo nem dados bancários.
-5. Enviar o formulário do plano sem fins lucrativos.
+2. ~~Caio entra no Sanity pelo terminal, com conta com 2FA.~~ Feito em 2026-11-05: projeto **IBP Curitiba** (`xuak6t0d`), dataset `production` público.
+3. Token de escrita (papel Editor), CORS e variáveis locais: feito em 2026-11-05. **Faltam:** variáveis na Vercel e o webhook de atualização.
+4. ~~Rodar a carga inicial (`scripts/semear.ts`).~~ Feito em 2026-11-05: 20 documentos (locais, horários padrão, padres, Sobre, capela, aviso da capela, configurações), sem exemplos nem dados bancários.
+5. ~~Caio cria o cliente OAuth no Google Cloud e define `PAINEL_ACESSOS`.~~ Feito em 2026-11-05; login testado por Caio no computador. **Recomendado:** gerar uma chave secreta nova, porque a atual passou pelo chat.
+6. ~~Esqueleto do painel: login, proteção e tela inicial.~~ Feito em 2026-11-05.
 
-**Pronto quando:** uma alteração feita no `/studio` aparecer no site publicado.
+**Pronto quando:** Caio entrar em `/painel` com o Google, no computador e no site publicado.
+
+### Fase 1b: o painel do dia a dia
+- ~~**Esta semana:** criar a semana a partir dos horários padrão; cancelar, acrescentar e remover horários; escolher o local; destacar a festa do dia.~~ Feito em 2026-11-05 (`/painel/semana`), com atalho para marcar o local de todos os horários sem local.
+- ~~**Avisos:** criar, editar, tirar do ar.~~ Feito em 2026-11-05 (`/painel/avisos`).
+- Depois: **notícias e artigos**, com texto formatado e fotos.
+
+**Pronto quando:** uma alteração feita no painel aparecer no site publicado.
 
 ### Fase 2: proteger
 6. Ativar 2FA e as proteções do GitHub e da Vercel.
@@ -172,8 +192,8 @@ Cada fase só termina quando o critério dela estiver cumprido.
 **Pronto quando:** os itens da seção 5 estiverem marcados. Só então convidar outras pessoas.
 
 ### Fase 3: preparar para o administrador
-9. Painel em português (verificar pacote de idioma), com o brasão, e Programação semanal e Avisos primeiro.
-10. Textos de ajuda nos campos e teste de uso no celular.
+9. Textos de ajuda nos campos e teste de uso no celular.
+10. Liberar os e-mails de quem vai publicar.
 11. Guia de uma página: como publicar um aviso e como ajustar a semana.
 12. Sessão de teste com quem vai publicar.
 

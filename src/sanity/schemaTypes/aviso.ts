@@ -29,6 +29,8 @@ export const aviso = defineType({
       description: "Opcional. Ex.: um post do Instagram ou uma notícia.",
       validation: (r) => r.uri({ allowRelative: true, scheme: ["http", "https"] }),
     }),
+    defineField({ name: "atualizadoPor", title: "Última alteração por", type: "string", readOnly: true, description: "Preenchido pelo painel do site." }),
+    defineField({ name: "atualizadoEm", title: "Última alteração em", type: "datetime", readOnly: true }),
   ],
   orderings: [{ title: "Validade", name: "validade", by: [{ field: "validoAte", direction: "desc" }] }],
   preview: {

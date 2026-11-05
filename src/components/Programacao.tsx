@@ -2,9 +2,10 @@
 
 import { diaMes, formatarHora, nomeDia, somarDias } from "@/lib/datas";
 import { ehMissa, proximaMissa, type DiaProgramacao } from "@/lib/programacao";
-import { CORES_LITURGICAS, rotuloTipo } from "@/sanity/lib/constantes";
+import { rotuloTipo } from "@/sanity/lib/constantes";
 import type { ItemProgramacao } from "@/sanity/lib/queries";
 import { SeloExemplo } from "./SeloExemplo";
+import { CorLiturgica } from "./CorLiturgica";
 import { useAgora } from "./useAgora";
 
 type Agora = { data: string; hora: string };
@@ -48,7 +49,6 @@ export function Programacao({ dias, agoraServidor }: { dias: DiaProgramacao[]; a
     <ol className="border-t border-linha">
       {semana.map((dia) => {
         const ehHoje = dia.data === agora.data;
-        const cor = CORES_LITURGICAS.find((c) => c.value === dia.destaque?.cor)?.title;
         return (
           <li key={dia.data} className="grid gap-x-10 gap-y-4 border-b border-linha py-7 md:grid-cols-[14rem_1fr]">
             <div className="flex items-baseline gap-3 md:block">
@@ -70,7 +70,7 @@ export function Programacao({ dias, agoraServidor }: { dias: DiaProgramacao[]; a
             <div>
               {dia.destaque && (
                 <p className="mb-4 text-suave">
-                  {cor && <span className="rotulo mr-3 text-tinta">{cor}</span>}
+                  {dia.destaque.cor && <CorLiturgica cor={dia.destaque.cor} className="mr-3" />}
                   {dia.destaque.texto}
                 </p>
               )}

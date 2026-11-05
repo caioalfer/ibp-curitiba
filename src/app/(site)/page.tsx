@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Imagem } from "@/components/Imagem";
 import Link from "next/link";
 import { ListaAvisos } from "@/components/ListaAvisos";
 import { Programacao } from "@/components/Programacao";
@@ -31,7 +31,7 @@ export default async function Home() {
         className="relative -mt-20 flex md:-mt-24 min-h-[100svh] flex-col justify-end overflow-hidden bg-fundo pt-44 pb-40 text-tinta md:pt-36 md:pb-20"
       >
         {/* Foto do painel (Configurações → Foto da página inicial); sem ela, a foto padrão do projeto. */}
-        <Image
+        <Imagem
           src={config.fotoCapa ? urlImagem(config.fotoCapa).width(2400).url() : fotoCapaPadrao}
           alt={config.fotoCapa?.alt ?? "Padre em oração diante do altar, com paramentos brancos bordados a ouro"}
           fill
@@ -142,7 +142,7 @@ export default async function Home() {
                     )}
                     {(p.foto || p.fotoLocal) && (
                       <span className="relative size-16 shrink-0 overflow-hidden rounded-full md:size-20">
-                        <Image
+                        <Imagem
                           src={p.foto ? urlImagem(p.foto).width(160).height(160).fit("crop").url() : p.fotoLocal!}
                           alt=""
                           fill

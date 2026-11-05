@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { Imagem } from "@/components/Imagem";
 import { TextoRico } from "@/components/TextoRico";
 import { Envoltorio, TituloPagina } from "@/components/Titulo";
 import { getSobre } from "@/lib/conteudo";
@@ -52,7 +52,7 @@ function SecaoPessoa({ id, titulo, pessoa: p }: { id: string; titulo: string; pe
       <div className={`grid items-start gap-10 lg:gap-16 ${temFoto ? "md:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]" : ""}`}>
         {temFoto && (
           <div className="relative aspect-[4/5] overflow-hidden rounded-[10px] bg-placa">
-            <Image
+            <Imagem
               src={p.foto ? urlImagem(p.foto).width(800).height(1000).fit("crop").url() : p.fotoLocal!}
               alt={p.nome}
               fill

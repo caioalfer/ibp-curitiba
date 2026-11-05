@@ -52,6 +52,9 @@ export type PublicacaoResumo = {
 
 export type Publicacao = PublicacaoResumo & { corpo?: PortableTextBlock[] };
 
+/** Linha do arquivo e da busca: só o necessário para listar e pesquisar (sem imagem). */
+export type ItemArquivo = Pick<PublicacaoResumo, "_id" | "titulo" | "slug" | "data" | "resumo" | "tema" | "exemplo">;
+
 export type Pessoa = {
   _id: string;
   nome: string;
@@ -121,7 +124,7 @@ export const QUERY_AVISOS = defineQuery(
 const projecaoResumo = `_id, titulo, "slug": slug.current, data, resumo, imagem, tema, "autor": autor->nome`;
 
 export const QUERY_NOTICIAS = defineQuery(
-  `*[_type == "noticia" && ${publicado} && defined(slug.current)] | order(data desc)[0...$limite]{${projecaoResumo}}`,
+  `*[_type == "noticia" && ${publicado} && defined(slug.current)] | order(data desc, _id desc)[0...$limite]{${projecaoResumo}}`,
 );
 
 export const QUERY_NOTICIA = defineQuery(
@@ -129,7 +132,12 @@ export const QUERY_NOTICIA = defineQuery(
 );
 
 export const QUERY_ARTIGOS = defineQuery(
-  `*[_type == "artigo" && ${publicado} && defined(slug.current)] | order(data desc)[0...$limite]{${projecaoResumo}}`,
+  `*[_type == "artigo" && ${publicado} && defined(slug.current)] | order(data desc, _id desc)[0...$limite]{${projecaoResumo}}`,
+);
+
+// Tudo a partir da posição $desde (0 = todos), do mais novo para o mais antigo. O teto ($ate) é só uma trava técnica.
+export const QUERY_ARQUIVO = defineQuery(
+  `*[_type == $tipo && ${publicado} && defined(slug.current)] | order(data desc, _id desc)[$desde...$ate]{_id, titulo, "slug": slug.current, data, resumo, tema}`,
 );
 
 export const QUERY_ARTIGO = defineQuery(

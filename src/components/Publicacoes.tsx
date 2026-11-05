@@ -1,9 +1,10 @@
-import Image, { type StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
+import { Imagem } from "./Imagem";
 import Link from "next/link";
-import { dataPorExtenso } from "@/lib/datas";
+import { dataPorExtenso, diaMes } from "@/lib/datas";
 import { urlImagem } from "@/sanity/lib/image";
 import { TEMAS_ARTIGO } from "@/sanity/lib/constantes";
-import type { Publicacao, PublicacaoResumo } from "@/sanity/lib/queries";
+import type { ItemArquivo, Publicacao, PublicacaoResumo } from "@/sanity/lib/queries";
 import { SeloExemplo } from "./SeloExemplo";
 import { TextoRico } from "./TextoRico";
 import { Envoltorio } from "./Titulo";
@@ -37,7 +38,7 @@ export function ListaPublicacoes({ itens, base }: { itens: PublicacaoResumo[]; b
             >
               {imagem && (
                 <>
-                  <Image
+                  <Imagem
                     src={imagem.src}
                     alt={imagem.alt}
                     fill
@@ -86,7 +87,7 @@ export function ListaArtigos({ itens }: { itens: PublicacaoResumo[] }) {
             >
               <span className="relative block aspect-[4/3] overflow-hidden rounded-[10px] bg-placa">
                 {imagem && (
-                  <Image
+                  <Imagem
                     src={imagem.src}
                     alt={imagem.alt}
                     fill
@@ -119,6 +120,56 @@ export function ListaArtigos({ itens }: { itens: PublicacaoResumo[] }) {
   );
 }
 
+/**
+ * Arquivo: tudo o que é mais antigo que a lista principal, agrupado por ano, com data e título.
+ * Nada sai do ar: notícias e artigos vão se acumulando como registro ao longo dos anos.
+ */
+export function ListaArquivo({ itens, base }: { itens: ItemArquivo[]; base: "/noticias" | "/artigos" }) {
+  if (itens.length === 0) return null;
+  const porAno = new Map<string, ItemArquivo[]>();
+  for (const p of itens) {
+    const ano = p.data.slice(0, 4);
+    porAno.set(ano, [...(porAno.get(ano) ?? []), p]);
+  }
+  const id = `arquivo${base.replace("/", "-")}`;
+  return (
+    <section aria-labelledby={id} className="mt-24 md:mt-32">
+      <h2 id={id} className="text-[clamp(2.25rem,5vw,3.5rem)] leading-none font-light tracking-[-0.035em]">
+        Arquivo
+      </h2>
+      <p className="mt-3 text-lg text-suave">
+        {base === "/noticias" ? "Todas as notícias anteriores" : "Todos os artigos anteriores"}, por ano.
+      </p>
+      <div className="mt-10 border-b border-linha">
+        {[...porAno].map(([ano, lista]) => (
+          <div key={ano} className="grid gap-x-10 gap-y-2 border-t border-linha py-7 md:grid-cols-[14rem_1fr]">
+            <h3 className="text-[1.75rem] leading-tight font-light tracking-[-0.025em] tabular-nums">{ano}</h3>
+            <ul>
+              {lista.map((p) => (
+                <li key={p._id}>
+                  <Link
+                    href={`${base}/${p.slug}`}
+                    className="group grid gap-x-6 gap-y-0.5 py-2 sm:grid-cols-[5.5rem_1fr]"
+                  >
+                    <time dateTime={p.data} className="text-suave tabular-nums">
+                      {diaMes(p.data)}
+                    </time>
+                    <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <span className="transition-colors duration-200 group-hover:text-suave">{p.titulo}</span>
+                      {rotuloTema(p.tema) && <span className="rotulo text-suave">{rotuloTema(p.tema)}</span>}
+                      {p.exemplo && <SeloExemplo />}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /** Página de leitura: coluna de texto com medida fixa; data, autor e tema na margem. */
 export function PaginaPublicacao({ p, voltar }: { p: Publicacao; voltar: { href: string; rotulo: string } }) {
   const tema = rotuloTema(p.tema);
@@ -148,7 +199,7 @@ export function PaginaPublicacao({ p, voltar }: { p: Publicacao; voltar: { href:
         <Envoltorio className="mt-14">
           {typeof imagem.src === "string" ? (
             // Imagem do Sanity: proporção desconhecida aqui, então quadro fixo com recorte.
-            <Image
+            <Imagem
               src={imagem.src}
               alt={imagem.alt}
               width={2000}
@@ -159,7 +210,7 @@ export function PaginaPublicacao({ p, voltar }: { p: Publicacao; voltar: { href:
             />
           ) : (
             // Imagem do projeto: proporção original (pinturas em pé ou deitadas), limitada à altura da tela.
-            <Image
+            <Imagem
               src={imagem.src}
               alt={imagem.alt}
               priority

@@ -198,7 +198,7 @@ Monocromático em dois temas: cada papel é um token semântico (`--fundo`, `--t
 
 **A Regra do Token Semântico.** Toda cor de interface vem dos tokens semânticos, que mudam com o tema; nenhum componente escreve preto ou branco fixo, exceto os cartões com foto, que mantêm véu preto e texto branco nos dois temas.
 
-**A Regra Sem Matiz.** A interface não usa cor cromática. Cores litúrgicas são palavras em rótulo, não amostras de cor. A fotografia é a única fonte de cor e é bem-vinda como tal.
+**A Regra Sem Matiz.** A interface não usa cor cromática. A fotografia é a única fonte de cor e é bem-vinda como tal. **Exceção (pedido do cliente, 2026-11-05):** a cor litúrgica do dia aparece na própria cor, como rótulo colorido com uma bolinha da cor ao lado (`src/components/CorLiturgica.tsx`). O texto usa tons legíveis em cada tema (`--lit-*` em `globals.css`); branco e preto usam a cor do texto, e a bolinha mostra a cor de verdade.
 
 ## Typography
 

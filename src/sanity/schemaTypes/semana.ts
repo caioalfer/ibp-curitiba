@@ -147,6 +147,8 @@ export const semana = defineType({
           return fora.length ? `${fora.length} item(ns) com data fora desta semana.` : true;
         }),
     }),
+    defineField({ name: "atualizadoPor", title: "Última alteração por", type: "string", readOnly: true, description: "Preenchido pelo painel do site." }),
+    defineField({ name: "atualizadoEm", title: "Última alteração em", type: "datetime", readOnly: true }),
   ],
   orderings: [{ title: "Mais recente", name: "inicioDesc", by: [{ field: "inicio", direction: "desc" }] }],
   preview: {

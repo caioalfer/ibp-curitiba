@@ -1,5 +1,5 @@
 import { PortableText, type PortableTextComponents, type PortableTextBlock } from "next-sanity";
-import Image from "next/image";
+import { Imagem } from "./Imagem";
 import { urlImagem } from "@/sanity/lib/image";
 
 const componentes: PortableTextComponents = {
@@ -8,7 +8,7 @@ const componentes: PortableTextComponents = {
       if (!value?.asset) return null;
       return (
         <figure>
-          <Image
+          <Imagem
             src={urlImagem(value).width(1200).url()}
             alt={value.alt ?? ""}
             width={1200}
