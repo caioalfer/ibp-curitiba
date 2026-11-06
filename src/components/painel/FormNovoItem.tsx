@@ -6,7 +6,7 @@ import { TIPOS_ATIVIDADE } from "@/sanity/lib/constantes";
 import { BotaoEnviar } from "./Botoes";
 
 const CAMPO =
-  "h-12 w-full rounded-[10px] border border-linha bg-fundo px-4 text-base text-tinta transition-colors duration-200 hover:border-suave focus:border-tinta focus:outline-none aria-[invalid=true]:border-tinta";
+  "h-12 w-full rounded-[10px] border border-borda-campo bg-fundo px-4 text-base text-tinta transition-colors duration-200 hover:border-suave focus:border-tinta focus:outline-none aria-[invalid=true]:border-tinta";
 
 export function FormNovoItem({
   semanaId,

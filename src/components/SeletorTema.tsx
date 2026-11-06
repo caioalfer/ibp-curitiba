@@ -119,7 +119,7 @@ export function SeletorTemaBotao() {
       <ul
         id={idPainel}
         hidden={!aberto}
-        className="absolute top-full right-0 mt-3 w-44 overflow-hidden rounded-[10px] border border-linha bg-fundo py-1 text-tinta shadow-[0_10px_30px_rgba(0,0,0,0.12)]"
+        className="absolute top-full right-0 mt-3 w-44 overflow-hidden rounded-[10px] border border-linha bg-superficie py-1 text-tinta shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
       >
         {OPCOES.map((o) => (
           <li key={o.valor}>

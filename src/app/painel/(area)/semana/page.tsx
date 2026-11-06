@@ -22,7 +22,7 @@ export const metadata = { title: "Programação" };
 type LocalPainel = { _id: string; nome: string; apelido?: string };
 
 const CAMPO =
-  "h-11 rounded-[10px] border border-linha bg-fundo px-3 text-base text-tinta transition-colors duration-200 hover:border-suave focus:border-tinta focus:outline-none";
+  "h-11 rounded-[10px] border border-borda-campo bg-fundo px-3 text-base text-tinta transition-colors duration-200 hover:border-suave focus:border-tinta focus:outline-none";
 
 export default async function SemanaDoPainel({ searchParams }: PageProps<"/painel/semana">) {
   await exigirAcesso();

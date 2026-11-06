@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { agoraEmCuritiba } from "@/lib/datas";
-import { lerPainel } from "@/lib/painel/sanity";
+import { lerPainel, lerPainelComRascunhos } from "@/lib/painel/sanity";
+import { TIPOS_PUBLICACAO, type TipoPublicacao } from "@/lib/painel/tiposPublicacao";
 import { exigirAcesso } from "@/lib/painel/sessao";
 
 export const metadata = { title: "Início" };
@@ -8,9 +9,16 @@ export const metadata = { title: "Início" };
 export default async function InicioDoPainel() {
   const usuario = await exigirAcesso();
   const primeiroNome = usuario.nome.split(" ")[0];
-  const avisosNoAr = await lerPainel<number>(`count(*[_type == "aviso" && validoAte >= $hoje])`, {
-    hoje: agoraEmCuritiba().data,
-  });
+  const [avisosNoAr, publicacoes] = await Promise.all([
+    lerPainel<number>(`count(*[_type == "aviso" && validoAte >= $hoje])`, { hoje: agoraEmCuritiba().data }),
+    lerPainelComRascunhos<{ _id: string; _type: string }[]>(`*[_type in ["artigo", "noticia"]]{_id, _type}`),
+  ]);
+  const contar = (tipo: TipoPublicacao) => {
+    const doTipo = publicacoes.filter((p) => p._type === tipo);
+    const noSite = doTipo.filter((p) => !p._id.startsWith("drafts.")).length;
+    const soRascunho = doTipo.filter((p) => p._id.startsWith("drafts.") && !doTipo.some((o) => o._id === p._id.slice(7))).length;
+    return `${noSite ? `${noSite} no site` : `${TIPOS_PUBLICACAO[tipo].nenhum} no site ainda`}${soRascunho ? `, ${soRascunho === 1 ? "1 rascunho" : `${soRascunho} rascunhos`}` : ""}.`;
+  };
 
   const tarefas = [
     {
@@ -22,6 +30,16 @@ export default async function InicioDoPainel() {
       href: "/painel/avisos",
       titulo: "Avisos",
       texto: `${avisosNoAr === 1 ? "1 aviso" : `${avisosNoAr} avisos`} no site agora. Publicar, editar ou tirar do ar.`,
+    },
+    {
+      href: "/painel/artigos",
+      titulo: "Artigos",
+      texto: `${contar("artigo")} Escrever, com fotos, e publicar quando estiver pronto.`,
+    },
+    {
+      href: "/painel/noticias",
+      titulo: "Notícias",
+      texto: `${contar("noticia")} O que aconteceu no apostolado, com data e fotos.`,
     },
   ];
 

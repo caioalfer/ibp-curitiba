@@ -88,7 +88,7 @@ Regras: uma conta por pessoa, nunca compartilhada, e acesso removido no mesmo di
 |---|---|---|
 | Programação semanal, com o local de cada horário | Horários padrão e locais | Chaves Pix e dados bancários |
 | Avisos | Padres e texto do Sobre | Regras e aparência do site |
-| Notícias e artigos (etapa 2) | Campanha da capela: texto, resumo, fotos, mostrar ou esconder | |
+| Notícias e artigos | Campanha da capela: texto, resumo, fotos, mostrar ou esconder | |
 | | Configurações: WhatsApp, Instagram, e-mail, foto da home | |
 
 ### Rotina do administrador
@@ -124,8 +124,11 @@ Regras: uma conta por pessoa, nunca compartilhada, e acesso removido no mesmo di
 - [x] Login só com Google e só e-mails em `PAINEL_ACESSOS` (testado em 2026-11-05 com sessões de teste: sem sessão e e-mail fora da lista são barrados)
 - [x] Checagem de acesso em toda página do painel, inclusive do e-mail na lista a cada acesso
 - [x] Painel fora dos buscadores (`noindex`)
-- [x] Checagem de acesso e validação de tudo o que vem do navegador em toda ação de gravação (Avisos e Programação)
-- [x] Registro de quem editou em cada conteúdo (`atualizadoPor` e `atualizadoEm` nos avisos e na programação)
+- [x] Checagem de acesso e validação de tudo o que vem do navegador em toda ação de gravação (Programação, Avisos, Artigos e Notícias)
+- [x] Registro de quem editou em cada conteúdo (`atualizadoPor` e `atualizadoEm` na programação, nos avisos, artigos e notícias)
+- [x] Texto de artigos e notícias refeito no servidor só com o que o site mostra; links só `http`, `https` ou internos; fotos só do nosso Sanity; vídeos só do YouTube, mostrados pelo endereço sem cookies (`youtube-nocookie.com`)
+- [x] Faxina de fotos sem uso (`src/lib/painel/fotos.ts`): só apaga foto sem nenhuma referência (contando rascunhos e o conteúdo do Studio), com 7 dias de carência para as que não vieram de um texto excluído; o Sanity recusa apagar foto em uso
+- [x] Fotos: até 6 MB, só JPG, PNG ou WebP, conferidos pelos bytes do arquivo e não pelo nome. O recorte vindo do navegador é conferido no servidor (frações entre 0 e 0,95), e o ponto de interesse é calculado lá, não aceito pronto
 - Observação: o modo "Teste" do Google **não** serve de segunda trava. Para login com Google só com nome, e-mail e foto, o Google deixa qualquer conta entrar mesmo em modo Teste. Quem barra é a nossa lista `PAINEL_ACESSOS`.
 
 ### Sanity
@@ -142,11 +145,11 @@ Regras: uma conta por pessoa, nunca compartilhada, e acesso removido no mesmo di
 - [x] HTTPS forçado (`Strict-Transport-Security`, enviado pela Vercel)
 - [ ] Cabeçalhos que faltam: `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, com regras separadas para o site e o `/studio`
 - [ ] Restringir `images.remotePatterns` ao caminho do nosso projeto no `cdn.sanity.io`
-- [ ] Aceitar nos links vindos do painel só `http`, `https` e links internos. A validação do Studio não cobre escrita direta pela API.
+- [ ] Aceitar nos links vindos do painel só `http`, `https` e links internos. O painel próprio já valida (avisos, artigos e notícias); falta o site recusar ao exibir, porque a validação do Studio não cobre escrita direta pela API.
 - [ ] `robots.ts` e `sitemap.ts` (hoje `/robots.txt` dá 404)
 - [ ] Frase nas páginas de doação: "estas são as únicas chaves oficiais"
 
-**Sobre a CSP:** será sem nonce, porque o guia do Next diz que nonce exige renderização dinâmica, e o site perderia as páginas estáticas. O script de tema exige `'unsafe-inline'` em `script-src`. Compensamos restringindo o resto (`object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'none'`, imagens só de `'self'` e `cdn.sanity.io`). Começar em modo só-relatório e depois ativar.
+**Sobre a CSP:** será sem nonce, porque o guia do Next diz que nonce exige renderização dinâmica, e o site perderia as páginas estáticas. O script de tema exige `'unsafe-inline'` em `script-src`. Compensamos restringindo o resto (`object-src 'none'`, `base-uri 'self'`, `form-action 'self'`, `frame-ancestors 'none'`, imagens só de `'self'` e `cdn.sanity.io`). Vídeos dentro dos artigos exigem `frame-src https://www.youtube-nocookie.com` no site; no painel, a miniatura do vídeo exige `img-src https://i.ytimg.com`. Começar em modo só-relatório e depois ativar.
 
 ### Repositório e hospedagem
 - [x] `.env.local` fora do Git
@@ -180,9 +183,9 @@ Cada fase só termina quando o critério dela estiver cumprido.
 ### Fase 1b: o painel do dia a dia
 - ~~**Esta semana:** criar a semana a partir dos horários padrão; cancelar, acrescentar e remover horários; escolher o local; destacar a festa do dia.~~ Feito em 2026-11-05 (`/painel/semana`), com atalho para marcar o local de todos os horários sem local.
 - ~~**Avisos:** criar, editar, tirar do ar.~~ Feito em 2026-11-05 (`/painel/avisos`).
-- Depois: **notícias e artigos**, com texto formatado e fotos.
+- ~~**Notícias e artigos:** texto formatado e fotos.~~ Feito em 2026-11-06 (`/painel/artigos` e `/painel/noticias`): rascunho, publicar, descartar alterações, tirar do site e excluir.
 
-**Pronto quando:** uma alteração feita no painel aparecer no site publicado.
+**Pronto quando:** uma alteração feita no painel aparecer no site publicado. No computador já aparece; no site publicado, só quando o painel for ligado lá (decisão 23 do projeto).
 
 ### Fase 2: proteger
 6. Ativar 2FA e as proteções do GitHub e da Vercel.

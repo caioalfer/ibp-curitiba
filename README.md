@@ -40,7 +40,7 @@ npx tsc --noEmit # checagem de tipos
 | `/capela` | Construção da capela: o projeto, fotos da obra e como doar (QR code, Pix copia e cola, transferência) |
 | `/doacoes` | Os dois destinos de doação, cada um com o seu Pix: projeto da capela e manutenção básica da casa |
 | `/sobre` | A história do IBP, O Superior Geral, O Superior do Distrito e O Pároco de Curitiba |
-| `/painel` | **Painel de administração** (login com Google): Programação da semana e Avisos |
+| `/painel` | **Painel de administração** (login com Google): Programação da semana, Avisos, Artigos e Notícias |
 | `/studio` | Sanity Studio, só para o desenvolvedor (conteúdo que muda raramente) |
 | `/api/revalidar` | Webhook do Sanity para atualizar o site na hora |
 
@@ -75,6 +75,7 @@ Painel próprio, com o visual do site. Detalhes de segurança em [docs/painel-e-
 - **Login:** só Google, só os e-mails da variável `PAINEL_ACESSOS` (formato `email:admin,email:editor`). Para liberar ou tirar alguém, edite essa variável (no `.env.local` e na Vercel).
 - **Programação** (`/painel/semana`): esta semana e a próxima. "Ajustar esta semana" copia os horários padrão; depois dá para escolher o local de cada horário (ou de todos de uma vez), cancelar, acrescentar, remover e destacar a festa do dia.
 - **Avisos** (`/painel/avisos`): publicar, editar, republicar e excluir.
+- **Artigos** (`/painel/artigos`) e **Notícias** (`/painel/noticias`), com o mesmo código ([src/components/painel/PaginasPublicacao.tsx](src/components/painel/PaginasPublicacao.tsx)): editor no estilo do Substack com a aparência do site ([EditorTexto.tsx](src/components/painel/EditorTexto.tsx), Portable Text): estilos, negrito, itálico, riscado, link, listas, foto (com legenda, descrição e link), vídeo do YouTube, botão e linha separadora. Fotos sempre em **3:2** (`src/lib/proporcaoFoto.ts`): ao enviar, a janela [RecortarFoto.tsx](src/components/painel/RecortarFoto.tsx) enquadra a foto, que é guardada inteira com o recorte (`crop`/`hotspot` do Sanity) e pode ser reenquadrada depois. Foto de capa, autor em texto livre e **Pré-visualizar**, que usa o mesmo componente da página do site. Rascunho (`drafts.<id>`, nunca aparece no site), Publicar, Descartar alterações, Tirar do site e Excluir. Ao acrescentar um tipo de bloco, mudar em três lugares: o editor, [TextoRico.tsx](src/components/TextoRico.tsx) e `limparCorpo` em [publicacoes.ts](src/lib/painel/publicacoes.ts). Fotos até 6 MB (`serverActions.bodySizeLimit` em `next.config.ts`). Fotos que nada mais usa são apagadas do Sanity ([src/lib/painel/fotos.ts](src/lib/painel/fotos.ts)): as de um texto excluído na hora; as demais depois de 7 dias, numa faxina que roda ao publicar.
 - Cada gravação guarda quem alterou e quando, e atualiza o site na hora.
 - Variáveis necessárias (ver `.env.example`): `SANITY_WRITE_TOKEN`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `PAINEL_ACESSOS`.
 

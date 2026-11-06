@@ -20,6 +20,11 @@ export function lerPainel<T>(query: string, params: Record<string, unknown> = {}
   return sanityPainel().fetch<T>(query, params, { cache: "no-store" });
 }
 
+/** Lê publicados E rascunhos ("drafts."). Só para o painel: o site nunca mostra rascunhos. */
+export function lerPainelComRascunhos<T>(query: string, params: Record<string, unknown> = {}) {
+  return sanityPainel().fetch<T>(query, params, { cache: "no-store", perspective: "raw" });
+}
+
 /** Quem alterou e quando: todas as gravações saem da mesma chave, então anotamos a pessoa no próprio conteúdo. */
 export function carimbo(usuario: Usuario) {
   return { atualizadoPor: usuario.email, atualizadoEm: new Date().toISOString() };

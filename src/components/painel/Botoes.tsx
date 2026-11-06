@@ -9,10 +9,12 @@ export function BotaoEnviar({
   className = "pill pill-primaria",
   ...resto
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { pendente?: string }) {
-  const { pending } = useFormStatus();
+  const { pending, data } = useFormStatus();
+  // Com dois botões no mesmo formulário (Publicar / Salvar rascunho), só o clicado mostra "Salvando…".
+  const esteBotao = !resto.name || data?.get(resto.name) === resto.value;
   return (
-    <button type="submit" disabled={pending} aria-busy={pending} className={`${className} disabled:opacity-60`} {...resto}>
-      {pending ? pendente : children}
+    <button type="submit" disabled={pending} aria-busy={pending && esteBotao} className={`${className} disabled:opacity-60`} {...resto}>
+      {pending && esteBotao ? pendente : children}
     </button>
   );
 }

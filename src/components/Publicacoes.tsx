@@ -2,6 +2,7 @@ import type { StaticImageData } from "next/image";
 import { Imagem } from "./Imagem";
 import Link from "next/link";
 import { dataPorExtenso, diaMes } from "@/lib/datas";
+import { alturaDaFoto } from "@/lib/proporcaoFoto";
 import { urlImagem } from "@/sanity/lib/image";
 import { TEMAS_ARTIGO } from "@/sanity/lib/constantes";
 import type { ItemArquivo, Publicacao, PublicacaoResumo } from "@/sanity/lib/queries";
@@ -13,7 +14,10 @@ export function rotuloTema(tema?: string) {
   return TEMAS_ARTIGO.find((t) => t.value === tema)?.title;
 }
 
-/** Imagem do Sanity ou, nos exemplos, a imagem do projeto. */
+/**
+ * Imagem do Sanity ou, nos exemplos, a imagem do projeto. Todas as fotos de artigos e notícias aparecem
+ * na proporção padrão (3:2, src/lib/proporcaoFoto.ts), respeitando o enquadramento feito no painel.
+ */
 function imagemDe(p: PublicacaoResumo, largura: number, altura?: number): { src: string | StaticImageData; alt: string } | null {
   if (p.imagem) {
     const url = urlImagem(p.imagem).width(largura);
@@ -29,12 +33,12 @@ export function ListaPublicacoes({ itens, base }: { itens: PublicacaoResumo[]; b
     <ul className="grid gap-4 md:grid-cols-2">
       {itens.map((p) => {
         const tema = rotuloTema(p.tema);
-        const imagem = imagemDe(p, 1000, 750);
+        const imagem = imagemDe(p, 1200, alturaDaFoto(1200));
         return (
           <li key={p._id}>
             <Link
               href={`${base}/${p.slug}`}
-              className={`group relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-[10px] sm:aspect-[4/3] ${imagem ? "bg-preto text-branco" : "bg-placa text-tinta"}`}
+              className={`group relative flex flex-col justify-end overflow-hidden rounded-[10px] ${imagem ? "aspect-[3/2] bg-preto text-branco" : "aspect-[4/5] bg-placa text-tinta sm:aspect-[3/2]"}`}
             >
               {imagem && (
                 <>
@@ -78,14 +82,14 @@ export function ListaArtigos({ itens }: { itens: PublicacaoResumo[] }) {
     <ol className="border-t border-linha">
       {itens.map((p) => {
         const tema = rotuloTema(p.tema);
-        const imagem = imagemDe(p, 640, 480);
+        const imagem = imagemDe(p, 640, alturaDaFoto(640));
         return (
           <li key={p._id} className="border-b border-linha">
             <Link
               href={`/artigos/${p.slug}`}
               className="group grid gap-x-10 gap-y-5 py-8 md:grid-cols-[16rem_minmax(0,1fr)_auto] md:items-center"
             >
-              <span className="relative block aspect-[4/3] overflow-hidden rounded-[10px] bg-placa">
+              <span className="relative block aspect-[3/2] overflow-hidden rounded-[10px] bg-placa">
                 {imagem && (
                   <Imagem
                     src={imagem.src}
@@ -173,7 +177,7 @@ export function ListaArquivo({ itens, base }: { itens: ItemArquivo[]; base: "/no
 /** Página de leitura: coluna de texto com medida fixa; data, autor e tema na margem. */
 export function PaginaPublicacao({ p, voltar }: { p: Publicacao; voltar: { href: string; rotulo: string } }) {
   const tema = rotuloTema(p.tema);
-  const imagem = imagemDe(p, 2000);
+  const imagem = imagemDe(p, 2400, alturaDaFoto(2400));
   return (
     <article className="pt-10 pb-24 md:pt-20">
       <Envoltorio>
@@ -197,27 +201,15 @@ export function PaginaPublicacao({ p, voltar }: { p: Publicacao; voltar: { href:
 
       {imagem && (
         <Envoltorio className="mt-14">
-          {typeof imagem.src === "string" ? (
-            // Imagem do Sanity: proporção desconhecida aqui, então quadro fixo com recorte.
-            <Imagem
-              src={imagem.src}
-              alt={imagem.alt}
-              width={2000}
-              height={1250}
-              priority
-              sizes="(max-width: 1200px) 100vw, 1136px"
-              className="aspect-[16/10] w-full rounded-[10px] object-cover"
-            />
-          ) : (
-            // Imagem do projeto: proporção original (pinturas em pé ou deitadas), limitada à altura da tela.
-            <Imagem
-              src={imagem.src}
-              alt={imagem.alt}
-              priority
-              sizes="(max-width: 1200px) 100vw, 1136px"
-              className="mx-auto h-auto max-h-[80vh] w-auto rounded-[10px]"
-            />
-          )}
+          {/* Sempre na proporção padrão: a do Sanity já vem recortada; a dos exemplos é recortada aqui. */}
+          <Imagem
+            src={imagem.src}
+            alt={imagem.alt}
+            {...(typeof imagem.src === "string" ? { width: 2400, height: alturaDaFoto(2400) } : {})}
+            priority
+            sizes="(max-width: 1200px) 100vw, 1136px"
+            className="aspect-[3/2] w-full rounded-[10px] object-cover"
+          />
           {p.imagemCredito && <p className="mt-3 text-center text-sm text-suave">{p.imagemCredito}</p>}
         </Envoltorio>
       )}

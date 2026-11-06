@@ -36,6 +36,8 @@
   --veu-topo: 55%;
   --veu-base-meio: 50%;
   --veu-base-fim: 45%;
+  --superficie: #ffffff;
+  --borda-campo: #c9c8c2;
   color-scheme: light;
 }
 
@@ -61,6 +63,8 @@
   --veu-topo: 75%;
   --veu-base-meio: 75%;
   --veu-base-fim: 75%;
+  --superficie: #1c1c1c;
+  --borda-campo: #5c5c5c;
   color-scheme: dark;
 }
 
@@ -87,6 +91,8 @@
     --veu-topo: 75%;
     --veu-base-meio: 75%;
     --veu-base-fim: 75%;
+    --superficie: #1c1c1c;
+    --borda-campo: #5c5c5c;
     color-scheme: dark;
   }
 }
@@ -100,6 +106,8 @@
   --color-apagado: var(--apagado);
   --color-marca: var(--marca);
   --color-marca-texto: var(--marca-texto);
+  --color-superficie: var(--superficie);
+  --color-borda-campo: var(--borda-campo);
   --color-preto: var(--preto);
   --color-branco: var(--branco);
 
@@ -133,6 +141,13 @@
   ::selection {
     background: var(--tinta);
     color: var(--fundo);
+  }
+
+  /* Lista que abre nos seletores: cor explícita, senão no tema escuro o Windows mostra texto claro em fundo claro. */
+  select option,
+  select optgroup {
+    background-color: var(--superficie);
+    color: var(--tinta);
   }
 
   :focus-visible {
@@ -283,6 +298,62 @@
     margin-top: 0.75rem;
     font-size: 0.875rem;
     color: var(--suave);
+  }
+  .texto-rico ul,
+  .texto-rico ol {
+    padding-left: 1.5em;
+  }
+  .texto-rico ul {
+    list-style: disc;
+  }
+  .texto-rico ol {
+    list-style: decimal;
+  }
+  .texto-rico li ul {
+    list-style: circle;
+  }
+  .texto-rico li + li,
+  .texto-rico li > ul,
+  .texto-rico li > ol {
+    margin-top: 0.4em;
+  }
+  .texto-rico li::marker {
+    color: var(--suave);
+  }
+  .texto-rico s {
+    text-decoration-color: var(--suave);
+  }
+  .texto-rico hr {
+    border: 0;
+    border-top: 1px solid var(--linha);
+    margin: 2.5em 0;
+  }
+  .texto-rico a.pill {
+    color: var(--marca-texto);
+    text-decoration: none;
+  }
+  .texto-rico .botao {
+    margin-top: 1.6em;
+  }
+
+  /* Editor do painel: o editor não agrupa listas em <ul>/<ol>, então os marcadores são desenhados aqui. */
+  .editor-texto [data-lista] {
+    position: relative;
+    padding-left: calc(1.5em * var(--nivel, 1));
+  }
+  .editor-texto [data-lista]::before {
+    position: absolute;
+    left: calc(1.5em * (var(--nivel, 1) - 1));
+    color: var(--suave);
+  }
+  .editor-texto [data-lista="bullet"]::before {
+    content: "•";
+  }
+  .editor-texto [data-lista="number"]::before {
+    content: attr(data-indice) ".";
+  }
+  .editor-texto [data-lista] + [data-lista] {
+    margin-top: 0.4em;
   }
 }
 

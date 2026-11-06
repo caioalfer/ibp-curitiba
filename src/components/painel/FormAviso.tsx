@@ -6,7 +6,7 @@ import { salvarAviso, type EstadoAviso } from "@/app/painel/(area)/avisos/acoes"
 import { BotaoEnviar } from "./Botoes";
 
 const CAMPO =
-  "w-full rounded-[10px] border border-linha bg-fundo px-4 text-base text-tinta transition-colors duration-200 placeholder:text-suave hover:border-suave focus:border-tinta focus:outline-none aria-[invalid=true]:border-tinta";
+  "w-full rounded-[10px] border border-borda-campo bg-fundo px-4 text-base text-tinta transition-colors duration-200 placeholder:text-suave hover:border-suave focus:border-tinta focus:outline-none aria-[invalid=true]:border-tinta";
 
 export function FormAviso({
   aviso,

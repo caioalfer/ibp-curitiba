@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@portabletext/editor": "8.2.4",
+    "@portabletext/plugin-list-index": "2.0.17",
     "@portabletext/react": "^8.0.1",
     "@sanity/client": "^8.9.0",
     "@sanity/image-url": "^2.1.1",

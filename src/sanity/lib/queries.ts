@@ -121,7 +121,7 @@ export const QUERY_AVISOS = defineQuery(
   `*[_type == "aviso" && ${publicado} && validoAte >= $hoje] | order(validoAte asc){_id, texto, validoAte, link}`,
 );
 
-const projecaoResumo = `_id, titulo, "slug": slug.current, data, resumo, imagem, tema, "autor": autor->nome`;
+const projecaoResumo = `_id, titulo, "slug": slug.current, data, resumo, imagem, tema, "autor": coalesce(autor->nome, autor)`;
 
 export const QUERY_NOTICIAS = defineQuery(
   `*[_type == "noticia" && ${publicado} && defined(slug.current)] | order(data desc, _id desc)[0...$limite]{${projecaoResumo}}`,

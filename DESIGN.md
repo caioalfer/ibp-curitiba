@@ -10,6 +10,8 @@ colors:
   tinta: "#0a0a0a"
   placa: "#f4f3ef"
   linha: "#e2e1dc"
+  superficie: "#ffffff"
+  borda-campo: "#c9c8c2"
   suave: "#5e5e5e"
   apagado: "#767676"
   texto-leitura: "#1f1f1f"
@@ -17,6 +19,8 @@ colors:
   tinta-escuro: "#ffffff"
   placa-escuro: "#202020"
   linha-escuro: "#333333"
+  superficie-escuro: "#1c1c1c"
+  borda-campo-escuro: "#5c5c5c"
   suave-escuro: "#999999"
   apagado-escuro: "#808080"
   texto-leitura-escuro: "#e8e8e3"
@@ -186,6 +190,8 @@ Monocromático em dois temas: cada papel é um token semântico (`--fundo`, `--t
 - **Tinta** (tinta / tinta-escuro): texto principal e títulos, contorno das pílulas e seu preenchimento de hover, traço "adiante", seleção de texto, cursor.
 - **Placa** (placa / placa-escuro): placas (avisos, locais, cartões de publicação sem foto) e hover das linhas de painéis e do botão do seletor de tema.
 - **Linha** (linha / linha-escuro): filetes de 1px de listas, rodapé, cabeçalho rolado, painéis, chips de contorno e seletor de tema; o traço curto do "passou"; trilho da barra de rolagem.
+- **Superfície** (superficie / superficie-escuro): o que flutua sobre a página: painel do seletor de tema, janelas do painel (link, vídeo, botão, enquadrar foto) e a lista que abre nos seletores (`<option>`). No claro é igual ao fundo; no escuro sobe para #1c1c1c, senão some no preto.
+- **Borda de campo** (borda-campo / borda-campo-escuro): contorno dos campos e seletores do painel. Mais forte que a linha, para os campos se destacarem no escuro.
 - **Suave** (suave / suave-escuro): texto secundário, subtítulos, rótulos de metadados, links de navegação inativos, opções inativas do seletor.
 - **Apagado** (apagado / apagado-escuro): o que já passou ou foi cancelado; opções indisponíveis; sublinhado dos links do texto rico.
 - **Texto de leitura** (texto-leitura / texto-leitura-escuro): corpo do texto rico, um preto amortecido no claro e um branco morno no escuro.
@@ -259,7 +265,7 @@ Pílulas calmas, sem ícone.
 
 ### Seletor de tema
 Três opções: Automático, Claro, Escuro; "Automático" apaga a chave salva e volta a seguir o sistema.
-- **Cabeçalho (md em diante):** botão circular de 40px com filete linha, ícone de meio círculo cheio em tinta (SVG de 16px), hover em placa. Abre um painel de 11rem (10px de raio, filete linha, fundo, sombra de painel) com as opções em 0.9375rem; a atual leva um ponto de 6px em marca. Fecha com clique fora ou Esc.
+- **Cabeçalho (md em diante):** botão circular de 40px com filete linha, ícone de meio círculo cheio em tinta (SVG de 16px), hover em placa. Abre um painel de 11rem (10px de raio, filete linha, superfície, sombra de painel) com as opções em 0.9375rem; a atual leva um ponto de 6px em marca. Fecha com clique fora ou Esc.
 - **Menu móvel:** sob o rótulo "Tema", um grupo segmentado em pílula com filete linha e 4px de folga; a opção atual é uma pílula de marca com texto marca-texto, as outras em suave (tinta no hover).
 
 ### Chips

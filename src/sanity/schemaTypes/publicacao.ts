@@ -36,11 +36,16 @@ const camposComuns = [
   }),
 ];
 
+const camposDoPainel = [
+  defineField({ name: "atualizadoPor", title: "Última alteração por", type: "string", readOnly: true, description: "Preenchido pelo painel do site." }),
+  defineField({ name: "atualizadoEm", title: "Última alteração em", type: "datetime", readOnly: true }),
+];
+
 export const noticia = defineType({
   name: "noticia",
   title: "Notícia",
   type: "document",
-  fields: [...camposComuns, defineField({ name: "corpo", title: "Texto", type: "textoRico" })],
+  fields: [...camposComuns, defineField({ name: "corpo", title: "Texto", type: "textoRico" }), ...camposDoPainel],
   orderings: [{ title: "Mais recente", name: "dataDesc", by: [{ field: "data", direction: "desc" }] }],
   preview: { select: { title: "titulo", subtitle: "data", media: "imagem" } },
 });
@@ -51,7 +56,12 @@ export const artigo = defineType({
   type: "document",
   fields: [
     ...camposComuns,
-    defineField({ name: "autor", title: "Autor", type: "reference", to: [{ type: "pessoa" }] }),
+    defineField({
+      name: "autor",
+      title: "Autor",
+      type: "string",
+      description: "Nome como deve aparecer no site. Ex.: Pe. Thiago Bonifácio",
+    }),
     defineField({
       name: "tema",
       title: "Tema",
@@ -59,7 +69,8 @@ export const artigo = defineType({
       options: { list: [...TEMAS_ARTIGO], layout: "radio" },
     }),
     defineField({ name: "corpo", title: "Texto", type: "textoRico" }),
+    ...camposDoPainel,
   ],
   orderings: [{ title: "Mais recente", name: "dataDesc", by: [{ field: "data", direction: "desc" }] }],
-  preview: { select: { title: "titulo", subtitle: "autor.nome", media: "imagem" } },
+  preview: { select: { title: "titulo", subtitle: "autor", media: "imagem" } },
 });
